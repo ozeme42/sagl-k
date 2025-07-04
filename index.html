@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2 Aylık Sağlıklı Yaşam Takipçisi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for pre-wrap to handle details text formatting */
+        .whitespace-pre-wrap p {
+            margin-bottom: 0.5rem; /* Add some spacing between lines */
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-4 text-gray-800">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-6 md:p-8">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-center text-blue-700 mb-6">
+            2 Aylık Sağlıklı Yaşam Takipçisi
+        </h1>
+
+        <!-- Hafta Navigasyonu -->
+        <div id="week-navigation" class="flex flex-wrap justify-center gap-2 mb-8">
+            <!-- Hafta butonları buraya JS ile eklenecek -->
+        </div>
+
+        <!-- Seçili Haftadaki Gün Navigasyonu -->
+        <div id="day-navigation" class="flex flex-wrap justify-center gap-2 mb-8">
+            <!-- Gün butonları buraya JS ile eklenecek -->
+        </div>
+
+        <!-- Mevcut Günün Planı -->
+        <div id="current-day-plan" class="bg-blue-50 p-6 rounded-xl shadow-inner border border-blue-200">
+            <!-- Günün detayları buraya JS ile eklenecek -->
+        </div>
+
+        <!-- Günlük Özet -->
+        <div id="daily-summary" class="mt-8 p-6 bg-purple-50 rounded-xl shadow-inner border border-purple-200 text-center">
+            <!-- Özet bilgileri buraya JS ile eklenecek -->
+        </div>
+
+        <!-- Navigasyon Butonları -->
+        <div class="flex justify-between mt-8">
+            <button id="prev-day-btn"
+                class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-full shadow-md hover:bg-blue-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                Önceki Gün
+            </button>
+            <button id="next-day-btn"
+                class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-full shadow-md hover:bg-blue-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                Sonraki Gün
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // date-fns kütüphanesi yerine manuel tarih işleme fonksiyonları
+        function addDays(date, days) {
+            const result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+        }
+
+        function format(date, formatStr) {
+            // Basit dd.MM.yyyy formatı için
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Ay 0-indekslidir
+            const year = date.getFullYear();
+            return `${day}.${month}.${year}`;
+        }
+
+        // Yemek şablonları (Ay 1 için)
+        const mealTemplatesMonth1 = [
+            // Cuma (Hafta 1)
+            {
+                sabah: {
+                    details: '2 haşlanmış yumurta, 100gr lor peyniri, bol domates, salatalık, maydanoz, 5 zeytin, 2 ceviz, 10 badem',
+                    calories: 430,
+                },
+                aksam: {
+                    details: '150gr ızgara tavuk göğsü, 6 yk zeytinyağlı kabak yemeği, büyük kase yeşil salata, 200gr yoğurt',
+                    calories: 560,
+                },
+            },
+            // Cumartesi (Hafta 1)
+            {
+                sabah: {
+                    details: '100gr lor peyniri, 2 haşlanmış yumurta, bol yeşillik, 1 kapya biber, 5 fındık, 10 çilek',
+                    calories: 350,
+                },
+                aksam: {
+                    details: '1 kase mercimek çorbası, 150gr ton balıklı salata, 200ml kefir',
+                    calories: 500,
+                },
+            },
+            // Pazar (Hafta 1)
+            {
+                sabah: {
+                    details: '2 haşlanmış yumurta, 100gr lor peyniri, domates, salatalık, maydanoz, 5 zeytin, 2 ceviz, 1 avuç kuru erik',
+                    calories: 470,
+                },
+                aksam: {
+                    details: '8 yk etsiz kuru fasulye, 6 yk zeytinyağlı brokoli, büyük kase yeşil salata, 200gr yoğurt',
+                    calories: 570,
+                },
+            },
+            // Pazartesi (Hafta 1)
+            {
+                sabah: {
+                    details: '100gr lor peyniri, 2 haşlanmış yumurta, bol yeşillik, 1 kapya biber, 5 badem, 1 küçük portakal',
+                    calories: 350,
+                },
+                aksam: {
+                    details: '150gr ızgara tavuk göğsü, 6 yk zeytinyağlı ıspanak, büyük kase yeşil salata, 1 kase cacık',
+                    calories: 510,
+                },
+            },
+            // Salı (Hafta 1)
+            {
+                sabah: {
+                    details: '2 haşlanmış yumurta, 100gr lor peyniri, domates, salatalık, maydanoz, 5 zeytin, 2 ceviz, 1 küçük kivi',
+                    calories: 410,
+                },
+                aksam: {
+                    details: '8 yk zeytinyağlı taze fasulye, 150gr ızgara tavuklu salata, 200gr yoğurt',
+                    calories: 560,
+                },
+            },
+            // Çarşamba (Hafta 1)
+            {
+                sabah: {
+                    details: '3 yk yulaf ezmesi, 1 çay kaşığı tarçın, 2 haşlanmış yumurta, yarım muz, 5 fındık',
+                    calories: 345,
+                },
+                aksam: {
+                    details: '150gr ızgara somon, 6 yk zeytinyağlı pırasa, büyük kase yeşil salata, 200gr yoğurt',
+                    calories: 570,
+                },
+            },
+            // Perşembe (Hafta 1)
+            {
+                sabah: {
+                    details: '2 haşlanmış yumurta, 100gr lor peyniri, domates, salatalık, maydanoz, 5 zeytin, 2 ceviz, 1 küçük şeftali',
+                    calories: 420,
+                },
+                aksam: {
+                    details: '8 yk zeytinyağlı karnabahar, 150gr ton balıklı salata, 200ml kefir',
+                    calories: 500,
+                },
+            },
+        ];
+
+        // Yemek şablonları (Ay 2 için)
+        const mealTemplatesMonth2 = [
+            // Cuma (Ay 2)
+            {
+                sabah: {
+                    details: '4 yk yulaf ezmesi (laktozsuz süt), 1 çay kaşığı tarçın, 2 haşlanmış yumurta, 10 çilek, 5 badem',
+                    calories: 415,
+                },
+                aksam: {
+                    details: '150gr ızgara tavuk göğsü, 6 yk zeytinyağlı taze fasulye, büyük kase yeşil salata, 200gr yoğurt, 2 yk bulgur pilavı',
+                    calories: 630,
+                },
+            },
+            // Cumartesi (Ay 2)
+            {
+                sabah: {
+                    details: '2 haşlanmış yumurta, 100gr lor peyniri, domates, salatalık, maydanoz, 5 zeytin, 2 ceviz, 1 küçük kivi',
+                    calories: 410,
+                },
+                aksam: {
+                    details: '8 yk etsiz nohut, 150gr ızgara tavuklu salata, 200ml kefir',
+                    calories: 640,
+                },
+            },
+            // Pazar (Ay 2)
+            {
+                sabah: {
+                    details: '2 haşlanmış yumurta, 100gr lor peyniri, domates, salatalık, maydanoz, 5 zeytin, 2 ceviz, 1 avuç kuru kayısı',
+                    calories: 470,
+                },
+                aksam: {
+                    details: '8 yk etsiz kuru börülce, 6 yk zeytinyağlı bamya, büyük kase yeşil salata, 200gr yoğurt',
+                    calories: 570,
+                },
+            },
+            // Pazartesi (Ay 2)
+            {
+                sabah: {
+                    details: '100gr lor peyniri, 2 haşlanmış yumurta, bol yeşillik, 1 kapya biber, 5 badem, 1 küçük portakal',
+                    calories: 350,
+                },
+                aksam: {
+                    details: '150gr ızgara tavuk göğsü, 6 yk zeytinyağlı ıspanak, büyük kase yeşil salata, 1 kase cacık',
+                    calories: 510,
+                },
+            },
+            // Salı (Ay 2)
+            {
+                sabah: {
+                    details: '2 haşlanmış yumurta, 100gr lor peyniri, domates, salatalık, maydanoz, 5 zeytin, 2 ceviz, 1 küçük kivi',
+                    calories: 410,
+                },
+                aksam: {
+                    details: '8 yk zeytinyağlı taze fasulye, 150gr ızgara tavuklu salata, 200gr yoğurt',
+                    calories: 560,
+                },
+            },
+            // Çarşamba (Ay 2)
+            {
+                sabah: {
+                    details: '3 yk yulaf ezmesi, 1 çay kaşığı tarçın, 2 haşlanmış yumurta, yarım muz, 5 fındık',
+                    calories: 345,
+                },
+                aksam: {
+                    details: '150gr ızgara somon, 6 yk zeytinyağlı pırasa, büyük kase yeşil salata, 200gr yoğurt',
+                    calories: 570,
+                },
+            },
+            // Perşembe (Ay 2)
+            {
+                sabah: {
+                    details: '2 haşlanmış yumurta, 100gr lor peyniri, domates, salatalık, maydanoz, 5 zeytin, 2 ceviz, 1 küçük şeftali',
+                    calories: 420,
+                },
+                aksam: {
+                    details: '8 yk zeytinyağlı karnabahar, 150gr ton balıklı salata, 200ml kefir',
+                    calories: 500,
+                },
+            },
+        ];
+
+        // Egzersiz şablonları
+        const exerciseTemplates = {
+            month1: { // Haftalar 1-4
+                kardiyoKuvvet: {
+                    type: 'Kardiyo + Kuvvet',
+                    duration: 40,
+                    caloriesBurned: '300-400',
+                    details: '**Isınma (5dk):** Yerinde hafif koşu, Kol çevirme, Bacak sallama, Gövde döndürme, Boyun çevirme (30-60sn her hareket) // **Kardiyo (30dk):** Yerinde Koşu (Dizleri yukarı çekerek tempolu koşu), Jumping Jack (Zıplayarak ayakları açıp kapatırken kolları yukarı kaldırıp indir), Yüksek Diz Çekme (Dizleri göğüse doğru çek), Dağ Tırmanışı (Şınav pozisyonunda dizleri sırayla göğüse çek), Modifiye Burpee (Çömel, elleri yere koy, ayakları arkaya at, ayakları öne çek, ayağa kalk - zıplamasız), İp Atlama (Sanal veya gerçek ip atlama hareketi) (45sn yap, 15sn dinlen, 4 tur) // **Kuvvet (15dk):** Squat (Ayaklar omuz genişliğinde açık, kalçayı geriye iterek çömel), Lunge (Her bacak için: Bir ayakla öne adım atıp diz 90 derece bükülene kadar kalçayı indir), Diz Üstü Push-up (Dizler üzerinde göğsü yere yaklaştırıp it), Triceps Dips (Sandalye kenarına oturup kolları bükerek vücudu indirip kaldır) (12-15 tekrar, 3 set, 30sn dinlenme) // **Plank:** 45sn (Dirsekler ve ayak parmakları üzerinde düz dur) // **Soğuma (5dk):** Bacak Arkası, Omuz/Kol, Göğüs, Sırt Esnetme (20-30sn her esneme)',
+                },
+                kardiyoKarınBacak: {
+                    type: 'Kardiyo + Karın & Bacak',
+                    duration: 40,
+                    caloriesBurned: '300-400',
+                    details: '**Isınma (5dk):** Yerinde hafif koşu, Kol çevirme, Bacak sallama, Gövde döndürme, Boyun çevirme (30-60sn her hareket) // **Kardiyo (30dk):** Yerinde Koşu (Dizleri yukarı çekerek tempolu koşu), Jumping Jack (Zıplayarak ayakları açıp kapatırken kolları yukarı kaldırıp indir), Yüksek Diz Çekme (Dizleri göğüse doğru çek), Dağ Tırmanışı (Şınav pozisyonunda dizleri sırayla göğüse çek), Modifiye Burpee (Çömel, elleri yere koy, ayakları arkaya at, ayakları öne çek, ayağa kalk - zıplamasız), İp Atlama (Sanal veya gerçek ip atlama hareketi) (45sn yap, 15sn dinlen, 4 tur) // **Karın & Bacak (15dk):** Crunches (Sırt üstü yat, dizler bükülü, omuzları yerden kaldırarak karnı sık), Leg Raises (Sırt üstü yat, bacakları düz tutup karın kaslarıyla yukarı kaldırıp yavaşça indir), Russian Twist (Yere oturup gövdeyi sağa sola çevir), Bicycle Crunches (Sırt üstü yatıp dirsekleri çapraz dize değdirerek bisiklet çevirir gibi yap) (15-20 tekrar, 3 set, 30-45sn dinlenme) // **Calf Raises:** 20 tekrar, 3 set (Parmak uçlarında yükselip topukları indir) // **Soğuma (5dk):** Bacak Arkası, Omuz/Kol, Göğüs, Sırt Esnetme (20-30sn her esneme)',
+                },
+                aktifDinlenme: {
+                    type: 'Aktif Dinlenme',
+                    duration: '30-45',
+                    caloriesBurned: '150-250',
+                    details: '30-45 dakika tempolu yürüyüş + Tüm vücut esneme hareketleri.',
+                },
+            },
+            month2: { // Haftalar 5-8
+                kardiyoKuvvet: { // Hata burada düzeltildi: 'kardiyoKuv kuvvet' yerine 'kardiyoKuvvet'
+                    type: 'Kardiyo + Kuvvet',
+                    duration: 50,
+                    caloriesBurned: '400-550',
+                    details: '**Isınma (5dk):** Yerinde hafif koşu, Kol çevirme, Bacak sallama, Gövde döndürme, Boyun çevirme (30-60sn her hareket) // **Kardiyo (30-35dk):** Yerinde Koşu (Daha yoğun), Jumping Jack (Daha tempolu), Yüksek Diz Çekme (Dizleri göğüse doğru çek), Dağ Tırmanışı (Şınav pozisyonunda dizleri sırayla göğüse çek), Tam Burpee (Zıplayarak kalk ve yere uzan), İp Atlama (Daha hızlı ve tempolu) (60sn yap, 15sn dinlen, 4 tur) // **Kuvvet (20-25dk):** Squat (Hafif ağırlıkla yapabilirsin), Lunge (Hafif ağırlıkla yapabilirsin, her bacak), Tam Push-up (veya dizler üzerinde devam et), Triceps Dips, Glute Bridge (Sırt üstü yat, dizler bükülü, kalçayı yerden kaldırıp sık) (12-15 tekrar, 3 set, 30-45sn dinlenme) // **Plank:** 45-60sn // **Soğuma (5dk):** Bacak Arkası, Omuz/Kol, Göğüs, Sırt Esnetme (20-30sn her esneme)',
+                },
+                kardiyoKarınBacak: {
+                    type: 'Kardiyo + Karın & Bacak',
+                    duration: 50,
+                    caloriesBurned: '400-550',
+                    details: '**Isınma (5dk):** Yerinde hafif koşu, Kol çevirme, Bacak sallama, Gövde döndürme, Boyun çevirme (30-60sn her hareket) // **Kardiyo (30-35dk):** Yerinde Koşu (Daha yoğun), Jumping Jack (Daha tempolu), Yüksek Diz Çekme (Dizleri göğüse doğru çek), Dağ Tırmanışı (Şınav pozisyonunda dizleri sırayla göğüse çek), Tam Burpee (Zıplayarak kalk ve yere uzan), İp Atlama (Daha hızlı ve tempolu) (60sn yap, 15sn dinlen, 4 tur) // **Karın & Bacak (20dk):** Crunches (20 tekrar), Leg Raises (15 tekrar, daha kontrollü), Russian Twist (Hafif ağırlıkla yapabilirsin, her yöne), Bicycle Crunches (Daha yavaş ve kontrollü, her yöne), Reverse Crunches (Sırt üstü yat, dizler bükülü, ayaklar havada, dizleri göğüse çekerek kalçayı hafifçe kaldır) (15 tekrar, 3 set, 30sn dinlenme) // **Calf Raises:** 25 tekrar, 3 set (Parmak uçlarında yükselip topukları indir) // **Soğuma (5dk):** Bacak Arkası, Omuz/Kol, Göğüs, Sırt Esnetme (20-30sn her esneme)',
+                },
+                aktifDinlenme: {
+                    type: 'Aktif Dinlenme',
+                    duration: '45-60',
+                    caloriesBurned: '200-350',
+                    details: '45-60 dakika tempolu yürüyüş + Tüm vücut esneme hareketleri.',
+                },
+            },
+        };
+
+        // Başlangıç tarihi: 5 Temmuz 2025 Cumartesi
+        const startDate = new Date('2025-07-05T00:00:00');
+
+        // Global değişkenler
+        let plan;
+        let selectedDayIndex = 0;
+
+        // UI elemanlarını seç
+        const weekNav = document.getElementById('week-navigation');
+        const dayNav = document.getElementById('day-navigation');
+        const currentDayPlanDiv = document.getElementById('current-day-plan');
+        const dailySummaryDiv = document.getElementById('daily-summary');
+        const prevDayBtn = document.getElementById('prev-day-btn');
+        const nextDayBtn = document.getElementById('next-day-btn');
+
+        // Hafta numarasını güne göre hesaplayan fonksiyon
+        const getWeekNumber = (dayIndex) => Math.floor(dayIndex / 7) + 1;
+
+        // Tam 2 aylık planı oluşturan fonksiyon
+        const generateFullPlan = () => {
+            const fullPlan = [];
+            // Haftanın günleri dizisi, başlangıç günü Cumartesi olduğu için sıralama değişti
+            const weekDays = ['Cumartesi', 'Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma'];
+
+            for (let i = 0; i < 56; i++) { // 8 hafta * 7 gün = 56 gün
+                const currentDate = addDays(startDate, i);
+                const formattedDate = format(currentDate, 'dd.MM.yyyy');
+                const currentWeekDay = weekDays[i % 7]; // Haftanın günlerini döngüye al
+
+                let mealsForDay;
+                let exerciseForDay;
+
+                // Yemek şablonları için gün indeksi ayarlaması
+                // mealTemplatesMonth1 ve mealTemplatesMonth2 dizileri Cuma'dan başlıyor.
+                // currentWeekDay'e göre doğru indeksi bulmak için bir haritalama kullanıyoruz.
+                const mealTemplateIndexMap = {
+                    'Cuma': 0, 'Cumartesi': 1, 'Pazar': 2, 'Pazartesi': 3, 'Salı': 4, 'Çarşamba': 5, 'Perşembe': 6
+                };
+                const currentMealTemplateIndex = mealTemplateIndexMap[currentWeekDay];
+
+
+                if (i < 28) { // İlk 4 hafta (Ay 1)
+                    mealsForDay = mealTemplatesMonth1[currentMealTemplateIndex];
+
+                    if (currentWeekDay === 'Pazar') {
+                        exerciseForDay = exerciseTemplates.month1.aktifDinlenme;
+                    } else if (currentWeekDay === 'Cuma' || currentWeekDay === 'Pazartesi' || currentWeekDay === 'Çarşamba') {
+                        exerciseForDay = exerciseTemplates.month1.kardiyoKuvvet;
+                    } else { // Salı, Perşembe, Cumartesi
+                        exerciseForDay = exerciseTemplates.month1.kardiyoKarınBacak;
+                    }
+                } else { // Son 4 hafta (Ay 2)
+                    mealsForDay = mealTemplatesMonth2[currentMealTemplateIndex];
+
+                    if (currentWeekDay === 'Pazar') {
+                        exerciseForDay = exerciseTemplates.month2.aktifDinlenme;
+                    } else if (currentWeekDay === 'Cuma' || currentWeekDay === 'Pazartesi' || currentWeekDay === 'Çarşamba') {
+                        exerciseForDay = exerciseTemplates.month2.kardiyoKuvvet;
+                    } else { // Salı, Perşembe, Cumartesi
+                        exerciseForDay = exerciseTemplates.month2.kardiyoKarınBacak;
+                    }
+                }
+
+                fullPlan.push({
+                    day: i + 1,
+                    date: formattedDate,
+                    weekDay: currentWeekDay,
+                    meals: [
+                        {
+                            type: 'Sabah Öğünü',
+                            details: mealsForDay.sabah.details,
+                            calories: mealsForDay.sabah.calories,
+                            completed: false,
+                        },
+                        {
+                            type: 'Akşam Öğünü',
+                            details: mealsForDay.aksam.details,
+                            calories: mealsForDay.aksam.calories,
+                            completed: false,
+                        },
+                    ],
+                    exercise: {
+                        type: exerciseForDay.type,
+                        duration: exerciseForDay.duration,
+                        caloriesBurned: exerciseForDay.caloriesBurned,
+                        details: exerciseForDay.details,
+                        completed: false,
+                    },
+                });
+            }
+            return fullPlan;
+        };
+
+        // Planı render eden ana fonksiyon
+        function renderPlan() {
+            const currentDayPlan = plan[selectedDayIndex];
+
+            // Hafta Navigasyonunu Güncelle
+            weekNav.innerHTML = ''; // Önceki butonları temizle
+            const weekNumbers = [...new Set(plan.map((_, index) => getWeekNumber(index)))];
+            weekNumbers.forEach(weekNum => {
+                const button = document.createElement('button');
+                button.textContent = `Hafta ${weekNum}`;
+                button.className = `px-4 py-2 rounded-full font-semibold text-sm transition-all duration-300 ease-in-out ${
+                    getWeekNumber(selectedDayIndex) === weekNum
+                        ? 'bg-blue-600 text-white shadow-lg'
+                        : 'bg-gray-200 text-gray-700 hover:bg-blue-200 hover:text-blue-700'
+                }`;
+                button.onclick = () => {
+                    selectedDayIndex = (weekNum - 1) * 7; // Seçili haftanın ilk gününe ayarla
+                    renderPlan();
+                };
+                weekNav.appendChild(button);
+            });
+
+            // Gün Navigasyonunu Güncelle
+            dayNav.innerHTML = ''; // Önceki butonları temizle
+            const daysInSelectedWeek = plan.filter((_, index) => getWeekNumber(index) === getWeekNumber(selectedDayIndex));
+            daysInSelectedWeek.forEach(dayPlan => {
+                const button = document.createElement('button');
+                button.textContent = `Gün ${dayPlan.day}`;
+                button.className = `px-3 py-1 rounded-full text-xs font-medium transition-all duration-300 ease-in-out ${
+                    selectedDayIndex === dayPlan.day - 1
+                        ? 'bg-purple-600 text-white shadow-md'
+                        : 'bg-gray-100 text-gray-600 hover:bg-purple-100 hover:text-purple-700'
+                }`;
+                button.onclick = () => {
+                    selectedDayIndex = dayPlan.day - 1; // Tam gün indeksine ayarla
+                    renderPlan();
+                };
+                dayNav.appendChild(button);
+            });
+
+            // Mevcut Günün Planını Güncelle
+            currentDayPlanDiv.innerHTML = `
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4 text-center">
+                    Gün ${currentDayPlan.day} - ${currentDayPlan.weekDay}, ${currentDayPlan.date}
+                </h2>
+
+                <!-- Öğünler Bölümü -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-blue-600 mb-3 border-b pb-2 border-blue-300">
+                        Öğünler
+                    </h3>
+                    ${currentDayPlan.meals.map((meal, mealIndex) => `
+                        <div class="flex items-center p-4 mb-3 rounded-lg transition-all duration-300 ease-in-out ${
+                            meal.completed ? 'bg-green-100 border border-green-300' : 'bg-white border border-gray-200'
+                        }">
+                            <input type="checkbox" id="meal-${selectedDayIndex}-${mealIndex}" ${meal.completed ? 'checked' : ''}
+                                class="form-checkbox h-5 w-5 text-green-600 rounded-md cursor-pointer focus:ring-green-500"
+                                onchange="toggleMealCompletion(${selectedDayIndex}, ${mealIndex})">
+                            <div class="ml-4 flex-1">
+                                <p class="font-medium text-lg text-gray-900">${meal.type}</p>
+                                <p class="text-sm text-gray-600">${meal.details}</p>
+                                <p class="text-xs text-gray-500 mt-1">Yaklaşık Kalori: ${meal.calories}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <!-- Egzersiz Bölümü -->
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-600 mb-3 border-b pb-2 border-blue-300">
+                        Egzersiz
+                    </h3>
+                    <div class="p-4 rounded-lg transition-all duration-300 ease-in-out ${
+                        currentDayPlan.exercise.completed ? 'bg-green-100 border border-green-300' : 'bg-white border border-gray-200'
+                    }">
+                        <div class="flex items-center mb-3">
+                            <input type="checkbox" id="exercise-${selectedDayIndex}" ${currentDayPlan.exercise.completed ? 'checked' : ''}
+                                class="form-checkbox h-5 w-5 text-green-600 rounded-md cursor-pointer focus:ring-green-500"
+                                onchange="toggleExerciseCompletion(${selectedDayIndex})">
+                            <div class="ml-4 flex-1">
+                                <p class="font-medium text-lg text-gray-900">${currentDayPlan.exercise.type}</p>
+                                <p class="text-sm text-gray-600">Süre: ${currentDayPlan.exercise.duration} dk</p>
+                                <p class="text-xs text-gray-500 mt-1">Yakılan Yaklaşık Kalori: ${currentDayPlan.exercise.caloriesBurned}</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-md text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
+                            <h4 class="font-semibold mb-1 text-blue-500">Egzersiz Detayları:</h4>
+                            ${currentDayPlan.exercise.details.split('//').map(line => `<p>${line.trim().replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Günlük Özeti Güncelle
+            const totalCaloriesConsumed = currentDayPlan.meals.reduce((sum, meal) => sum + (meal.completed ? meal.calories : 0), 0);
+            const totalCaloriesBurned = currentDayPlan.exercise.completed
+                ? parseInt(currentDayPlan.exercise.caloriesBurned.split('-')[0]) || 0
+                : 0;
+            const netCalories = totalCaloriesConsumed - totalCaloriesBurned;
+
+            dailySummaryDiv.innerHTML = `
+                <h3 class="text-xl font-semibold text-purple-700 mb-3 border-b pb-2 border-purple-300">
+                    Günlük Özet
+                </h3>
+                <p class="text-lg text-gray-800 mb-2">
+                    Tüketilen Kalori: <span class="font-bold text-green-600">${totalCaloriesConsumed}</span>
+                </p>
+                <p class="text-lg text-gray-800 mb-2">
+                    Yakılan Kalori: <span class="font-bold text-red-600">${totalCaloriesBurned}</span>
+                </p>
+                <p class="text-xl text-gray-900 font-bold mt-4">
+                    Net Kalori Dengesi: <span class="${netCalories < 0 ? 'text-red-700' : 'text-green-700'}">${netCalories}</span>
+                </p>
+            `;
+
+            // Navigasyon butonlarının durumunu güncelle
+            prevDayBtn.disabled = selectedDayIndex === 0;
+            nextDayBtn.disabled = selectedDayIndex === plan.length - 1;
+        }
+
+        // Checkbox olay yöneticileri (Global olarak tanımlanmalı ki HTML'den erişilebilsin)
+        window.toggleMealCompletion = (dayIndex, mealIndex) => {
+            plan[dayIndex].meals[mealIndex].completed = !plan[dayIndex].meals[mealIndex].completed;
+            renderPlan(); // UI'ı yeniden render et
+        };
+
+        window.toggleExerciseCompletion = (dayIndex) => {
+            plan[dayIndex].exercise.completed = !plan[dayIndex].exercise.completed;
+            renderPlan(); // UI'ı yeniden render et
+        };
+
+        // Navigasyon butonlarına olay dinleyicileri ekle
+        prevDayBtn.addEventListener('click', () => {
+            selectedDayIndex = Math.max(0, selectedDayIndex - 1);
+            renderPlan();
+        });
+
+        nextDayBtn.addEventListener('click', () => {
+            selectedDayIndex = Math.min(plan.length - 1, selectedDayIndex + 1);
+            renderPlan();
+        });
+
+        // Sayfa yüklendiğinde planı ilk kez render et
+        window.onload = function() {
+            plan = generateFullPlan(); // Planı burada oluştur
+            renderPlan(); // Ve burada render et
+        };
+    </script>
+</body>
+</html>
