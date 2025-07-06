@@ -3,2381 +3,719 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2 Aylık Kilo Verme & Kas Kazanma Programı</title>
+    <title>Karbonhidratsız Beslenme Planı</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Inter font for better readability */
         body {
-            font-family: "Inter", sans-serif;
-            background-color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
         }
-        .progress-circle {
-            transform: rotate(-90deg);
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .progress-circle circle {
-            transition: stroke-dashoffset 1s linear;
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .macro-info {
+            font-size: 0.875rem; /* text-sm */
+            color: #4b5563; /* gray-700 */
+            margin-top: 0.25rem;
+            display: block; /* Ensures it goes to the next line */
         }
     </style>
 </head>
-<body class="min-h-screen bg-gray-100 flex flex-col items-center p-4 font-inter">
+<body class="flex flex-col min-h-screen items-center justify-center p-4">
 
-    <!-- Başlık Bölümü -->
-    <header class="w-full max-w-4xl bg-white rounded-xl shadow-md p-6 mb-6 text-center">
-        <h1 class="text-3xl font-bold text-gray-800 mb-2">2 Aylık Kilo Verme & Kas Kazanma Programı</h1>
-        <p class="text-lg text-gray-600">Evde 5kg Dambıl ile Günlük Planınız</p>
-        <p class="text-red-600 font-semibold mt-4">
-            **ÖNEMLİ UYARI:** Bu yoğun programı (tek öğün beslenme ve günde iki antrenman) uygulamadan önce mutlaka bir doktor ve diyetisyene danışınız. Sağlığınız her şeyden önemlidir.
-        </p>
-        <p class="text-blue-600 font-semibold mt-2">
-            **Başlangıç Seviyesi Notu:** Yeni başlayanlar için egzersizlerde doğru form çok önemlidir. Ağırlıktan çok, hareketi doğru yapmaya odaklanın. Vücudunuzu dinleyin ve ağrı hissederseniz durun. Zamanla güçlendikçe set ve tekrar sayılarını artırabilirsiniz.
-        </p>
-    </header>
+    <!-- Main Container -->
+    <div class="bg-white rounded-xl shadow-2xl p-6 md:p-8 w-full max-w-2xl lg:max-w-3xl transform transition-all duration-300 hover:scale-[1.01]">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-6 text-center">
+            Karbonhidratsız Beslenme Planı
+        </h1>
 
-    <!-- Hafta Seçimi ve Gün Navigasyonu -->
-    <div class="w-full max-w-4xl bg-white rounded-xl shadow-md p-6 mb-6">
-        <!-- Hafta Butonları -->
-        <div id="week-buttons" class="flex flex-wrap justify-center gap-2 mb-4">
-            <!-- Hafta butonları JavaScript tarafından doldurulacak -->
+        <!-- About Section -->
+        <div class="bg-blue-50 p-4 rounded-lg mb-6 text-blue-800 border border-blue-200">
+            <h2 class="text-xl font-semibold mb-2">Hakkında</h2>
+            <p class="text-sm md:text-base leading-relaxed mb-2">
+                Bu uygulama, 30 günlük karbonhidratsız beslenme planınızı kolayca takip etmeniz için tasarlanmıştır. Her günün kahvaltı ve akşam yemeği menülerini görebilir, günler arasında ileri geri geçiş yapabilirsiniz. Her öğün için 5 alternatif menü sunulmaktadır. Türk mutfağına uygun tarifler esas alınmıştır.
+            </p>
+            <p class="text-sm md:text-base leading-relaxed font-semibold">
+                *Menülerin yanındaki makro değerleri (P: Protein, Y: Yağ, K: Karbonhidrat) yaklaşık değerlerdir ve porsiyon büyüklüğüne, pişirme yöntemine ve kullanılan malzemelerin tam besin değerlerine göre değişiklik gösterebilir.
+            </p>
         </div>
 
-        <!-- Gün Butonları (Seçili Haftaya Göre) -->
-        <div id="day-buttons" class="flex flex-wrap justify-center gap-2 mb-4">
-            <!-- Gün butonları JavaScript tarafından doldurulacak -->
-        </div>
-
-        <!-- Gün Navigasyon Butonları -->
-        <div class="flex justify-between items-center">
-            <button id="prev-day-btn" class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition duration-300 ease-in-out">
-                &larr; Önceki Gün
+        <!-- Day Navigation -->
+        <div class="flex items-center justify-between mb-6 bg-gray-100 p-3 rounded-lg shadow-inner">
+            <button id="prevDayBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Önceki Gün
             </button>
-            <span id="current-day-info" class="text-xl font-bold text-gray-800">
-                <!-- Gün bilgisi JavaScript tarafından doldurulacak -->
-            </span>
-            <button id="next-day-btn" class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition duration-300 ease-in-out">
-                Sonraki Gün &rarr;
+            <span id="currentDay" class="text-2xl md:text-3xl font-bold text-gray-900 px-4 py-2 bg-yellow-100 rounded-lg shadow-sm">Gün 1</span>
+            <button id="nextDayBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+                Sonraki Gün
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
             </button>
         </div>
+
+        <!-- Meal Plan Display -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Breakfast Section -->
+            <div class="bg-green-50 p-5 rounded-xl shadow-lg border border-green-200">
+                <h3 class="text-2xl font-semibold text-green-800 mb-3 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2V7a5 5 0 00-5-5zm-3 7v2h6V9A3 3 0 007 9z" />
+                    </svg>
+                    Kahvaltı
+                </h3>
+                <ul id="breakfastMenu" class="text-gray-700 text-base md:text-lg leading-relaxed list-disc pl-5"></ul>
+            </div>
+
+            <!-- Dinner Section -->
+            <div class="bg-purple-50 p-5 rounded-xl shadow-lg border border-purple-200">
+                <h3 class="text-2xl font-semibold text-purple-800 mb-3 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-2a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.414-1.414L9 10.586l-1.121-1.121a1 1 0 10-1.414 1.414l2.5 2.5a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    Akşam Yemeği
+                </h3>
+                <ul id="dinnerMenu" class="text-gray-700 text-base md:text-lg leading-relaxed list-disc pl-5"></ul>
+            </div>
+        </div>
     </div>
 
-    <!-- Günlük Plan Görüntüleme Alanı -->
-    <div id="daily-plan-container" class="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8">
-        <!-- Günlük plan içeriği JavaScript tarafından doldurulacak -->
-    </div>
+    <script type="module">
+        // Firebase Configuration (Placeholder - not actively used for storage in this version)
+        // These global variables are provided by the Canvas environment.
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        // Fix: Changed 'initialAuthToken' to '__initial_auth_token' on the right side of the assignment
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
-    <!-- Antrenman Zamanlayıcı Alanı (Başlangıçta gizli) -->
-    <div id="workout-session-container" class="w-full max-w-2xl bg-white rounded-xl shadow-lg p-8 text-center hidden">
-        <!-- Antrenman zamanlayıcı içeriği JavaScript tarafından doldurulacak -->
-    </div>
-
-    <!-- Toplam Tamamlananlar ve Genel İlerleme Özeti -->
-    <div id="overall-progress-summary" class="w-full max-w-4xl bg-white rounded-xl shadow-lg p-6 mt-6 text-center">
-        <!-- Genel ilerleme özeti JavaScript tarafından doldurulacak -->
-    </div>
-
-    <!-- Alt Bilgi / Yasal Uyarı -->
-    <footer class="w-full max-w-4xl text-center text-gray-500 text-sm mt-6 p-4">
-        <p>&copy; 2025 Kilo Verme & Kas Kazanma Programı. Tüm hakları saklıdır.</p>
-        <p class="mt-2">Bu program genel bir rehber niteliğindedir. Bireysel ihtiyaçlarınız için profesyonel danışmanlık alınız.</p>
-    </footer>
-
-    <script>
-        // Haftalık rutinler (egzersizler ve yemekler) global kapsamda tanımlandı
-        // Her antrenman için tahmini kalori yakımı ve her öğün için tahmini makro değerleri eklendi.
-        // Yemek planları artık "OMAD" veya "Multi-Meal" (Kahvaltı Dahil) alternatiflerini içeriyor.
-        const week1Routine = [
-            // Gün 1: Pazartesi
+        // Meal Plan Data with 5 alternatives for each meal and estimated macros, focusing on Turkish cuisine
+        const mealPlan = [
+            // Hafta 1
             {
-                dayOfWeek: "Pazartesi",
-                morningWorkout: {
-                    name: "Kardiyo",
-                    duration: "45 dk",
-                    instructions: "Hızlı Tempolu Yürüyüş / Hafif Koşu (Nabzınızı hafifçe artırın, sohbet edebilecek kadar rahat olun.)",
-                    estimatedCaloriesBurned: 350 // Tahmini kalori yakımı
-                },
-                eveningWorkout: {
-                    name: "Üst Vücut Ağırlık (Evde, 5kg Dambıl ile)",
-                    duration: "60 dk", // Süre azaltıldı
-                    exercises: [
-                        {
-                            name: "Dumbbell Floor Press (Göğüs)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Yere sırtüstü uzanın, dizler bükülü, ayaklar yerde. Her elde bir dambıl tutun, dirsekler yere yakın. Dambılları göğsünüzün üzerinden yukarı itin ve kontrollü indirin. Hareketi yavaş ve kontrollü yapın, kası hissetmeye odaklanın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dumbbell+Floor+Press+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Evde+Dambıl+Göğüs+Antrenmanı"
-                        },
-                        {
-                            name: "Dumbbell Overhead Press (Omuz)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Ayakta veya sandalyede dik oturun. Her elde bir dambıl tutun, avuç içleri öne baksın. Dambılları başınızın üzerine doğru itin ve kontrollü indirin. Omuz kaslarınızı hissedin, belinizi zorlamayın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dambıl+Omuz+Presi+Doğru+Form",
-                            videoLink2: "https://www.youtube.com/results?search_query=Ayakta+Dambıl+Omuz+Antrenmanı"
-                        },
-                        {
-                            name: "Single Arm Dumbbell Row (Sırt)",
-                            setsReps: "2 set x 8-10 tekrar (her kol)", // Set/Tekrar azaltıldı
-                            howTo: "Bir elinizi ve dizinizi sağlam bir sandalyeye koyun, diğer elinizde dambıl olsun. Sırtınız düz, yere paralel. Dambılı karın bölgenize doğru çekin, kürek kemiğinizi sıkın ve yavaşça indirin. Tek taraflı çalışarak kası daha iyi hissedin, belinizi bükmeyin.",
-                            videoLink: "https://www.youtube.com/results?search_query=Tek+Kol+Dambıl+Row+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Sırt+Kası+İçin+Dambıl+Egzersizleri"
-                        },
-                        {
-                            name: "Dumbbell Lateral Raise (Omuz Yanlar)",
-                            setsReps: "2 set x 12-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun, kollar hafif bükülü. Dambılları yanlara, omuz hizasına kadar kaldırın ve kontrollü indirin. Omuzlarınızın yan kısmını hedefleyin, sallanmaktan kaçının.",
-                            videoLink: "https://www.youtube.com/results?search_query=Yana+Açış+Dambıl+Omuz+Egzersizi",
-                            videoLink2: "https://www.youtube.com/results?search_query=Dambıl+Lateral+Raise+Teknikleri"
-                        },
-                        {
-                            name: "Dumbbell Bicep Curl (Pazı)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Ayakta veya oturarak, her elde bir dambıl tutun. Avuç içleri öne baksın. Dambılları dirseklerinizi bükerek omuzlarınıza doğru kaldırın ve kontrollü indirin. Pazı kaslarınızı sıkın, dirseklerinizi vücudunuza yakın tutun.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dambıl+Pazı+Kıvırma+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Evde+Kol+Kası+Antrenmanı+Dambıl"
-                        },
-                        {
-                            name: "Dumbbell Triceps Kickback (Arka Kol)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Dizler hafif bükülü, kalçadan öne eğilin, sırt düz. Dirseklerinizi vücudunuza yakın tutarak dambılları geriye doğru itin ve arka kolunuzu sıkın. Sadece ön kolunuz hareket etsin, dirsekleriniz sabit kalsın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dambıl+Triceps+Kickback+Doğru+Form",
-                            videoLink2: "https://www.youtube.com/results?search_query=Arka+Kol+Dambıl+Egzersizleri"
-                        },
-                        {
-                            name: "Plank (Karın)",
-                            setsReps: "2 set x 20-30 saniye (veya maksimum tutuş süresi)", // Set/Tekrar azaltıldı
-                            howTo: "Yere yüzüstü uzanın. Dirsekleriniz ve ayak parmak uçlarınız üzerinde kendinizi kaldırın. Vücudunuz düz bir çizgi halinde olmalı, karın kaslarınızı sıkın. Kalçanız ne çok yukarıda ne çok aşağıda olsun.",
-                            videoLink: "https://www.youtube.com/results?search_query=Plank+Egzersizi+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Doğru+Plank+Formu"
-                        },
-                    ],
-                    estimatedCaloriesBurned: 400 // Tahmini kalori yakımı ayarlandı
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Izgara Somon (250g - orta boy bir fileto), Fırında Brokoli & Havuç (300g - yaklaşık 2 kase), Pişmiş Kinoa (2 su bardağı), Büyük Yeşil Salata (250g - büyük bir kase), Zeytinyağı (4 yemek kaşığı)",
-                        calories: "~1670 kcal",
-                        protein: "120g",
-                        carbs: "150g",
-                        fat: "65g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Fırında Tavuk Göğsü (200g), Buharda Sebzeler (350g - karnabahar, brokoli, havuç), Esmer Pirinç (1.5 su bardağı), Bol Yeşillikli Salata (200g), Zeytinyağı (3 yemek kaşığı)",
-                        calories: "~1400 kcal",
-                        protein: "100g",
-                        carbs: "120g",
-                        fat: "50g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Yumurta (2 adet), Tam Buğday Ekmek (2 dilim), Beyaz Peynir (50g - 2 parmak kalınlığında), Domates, Salatalık, Zeytin (5 adet)",
-                            calories: "~450 kcal",
-                            protein: "25g", carbs: "40g", fat: "20g"
-                        },
-                        dinner: {
-                            meal: "Sebzeli Köfte (150g köfte - 4-5 adet, 200g sebze - 1.5 kase), Bulgur Pilavı (1 su bardağı)",
-                            calories: "~600 kcal",
-                            protein: "50g", carbs: "60g", fat: "20g"
-                        },
-                        totalCalories: "~1050 kcal",
-                        totalProtein: "75g",
-                        totalCarbs: "100g",
-                        totalFat: "40g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Yulaf Lapası (60g yulaf, 250ml süt), Muz (1 adet), Yer Fıstığı Ezmesi (1 yemek kaşığı)",
-                            calories: "~500 kcal",
-                            protein: "20g", carbs: "70g", fat: "20g"
-                        },
-                        dinner: {
-                            meal: "Kırmızı Mercimek Yemeği (300g), Yoğurt (200g), Tam Buğday Ekmek (1 dilim)",
-                            calories: "~550 kcal",
-                            protein: "30g", carbs: "80g", fat: "15g"
-                        },
-                        totalCalories: "~1050 kcal",
-                        totalProtein: "50g",
-                        totalCarbs: "150g",
-                        totalFat: "35g"
-                    }
+                day: 1,
+                breakfast: [
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)"
+                ],
+                dinner: [
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)"
                 ]
             },
-            // Gün 2: Salı
             {
-                dayOfWeek: "Salı",
-                morningWorkout: {
-                    name: "HIIT Kardiyo",
-                    duration: "20 dk", // Süre azaltıldı
-                    instructions: "Yerinde Koşu / Jumping Jacks / Yüksek Dizler (5 dk ısınma. 20 sn tam gaz, 40 sn hafif tempo/dinlenme. 8-10 döngü. 5 dk soğuma.)", // Döngü azaltıldı
-                    estimatedCaloriesBurned: 300 // Tahmini kalori yakımı ayarlandı
-                },
-                eveningWorkout: {
-                    name: "Alt Vücut & Karın Ağırlık (Evde, 5kg Dambıl ile)",
-                    duration: "60 dk", // Süre azaltıldı
-                    exercises: [
-                        {
-                            name: "Goblet Squat (Bacak)",
-                            setsReps: "2 set x 12-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Bir dambılı dikey olarak iki elinizle göğsünüzün önünde tutun. Ayaklar omuz genişliğinde açık. Kalçanızı geriye atarak derin bir squat yapın ve yukarı kalkın. Dizleriniz ayak uçlarını geçmesin, sırtınız düz kalsın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Goblet+Squat+Teknikleri",
-                            videoLink2: "https://www.youtube.com/results?search_query=Dambıl+ile+Bacak+Antrenmanı+Evde"
-                        },
-                        {
-                            name: "Dumbbell Reverse Lunge (Bacak)",
-                            setsReps: "2 set x 8-10 tekrar (her bacak)", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun. Bir bacağınızı geriye doğru büyük bir adım atın, arka dizinizi yere yaklaştırın. Öndeki diziniz ayak ucunu geçmesin. Topuktan güç alarak başlangıç pozisyonuna dönün ve bacak değiştirin. Dengenizi koruyun, yavaş ve kontrollü yapın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Geriye+Lunge+Dambıl+ile+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Dambıl+Lunge+Egzersizi"
-                        },
-                        {
-                            name: "Dumbbell Romanian Deadlift (Arka Bacak/Sırt)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun, dizler hafif bükülü. Kalçadan öne doğru eğilin, sırtınızı düz tutun ve dambılları bacaklarınız boyunca indirin. Arka bacaklarınızdaki gerilmeyi hissedin. Kontrollü bir şekilde başlangıç pozisyonuna dönün, belinizi yuvarlamayın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Romen+Deadlift+Dambıl+ile",
-                            videoLink2: "https://www.youtube.com/results?search_query=Arka+Bacak+Egzersizleri+Evde"
-                        },
-                        {
-                            name: "Glute Bridge (Kalça)",
-                            setsReps: "2 set x 12-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Sırtüstü yere uzanın, dizler bükülü, ayaklar yerde. Kalçanızı yerden kaldırarak köprü oluşturun, kalçalarınızı sıkın. Yavaşça indirin. İsterseniz kalçanızın üzerine bir dambıl koyabilirsiniz.",
-                            videoLink: "https://www.youtube.com/results?search_query=Glute+Bridge+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Kalça+Köprüsü+Egzersizi"
-                        },
-                        {
-                            name: "Calf Raises (Baldır)",
-                            setsReps: "2 set x 15-20 tekrar (her bacak)", // Set/Tekrar azaltıldı
-                            howTo: "Ayakta, bir elinizle duvardan destek alın. Parmak ucunuzda yükselin ve baldırınızı sıkın. Yavaşça topuğunuzu indirin. Tek bacakla daha zorlayıcı olacaktır.",
-                            videoLink: "https://www.youtube.com/results?search_query=Baldır+Kaldırma+Egzersizi",
-                            videoLink2: "https://www.youtube.com/results?search_query=Ayakta+Baldır+Kası+Geliştirme"
-                        },
-                        {
-                            name: "Crunches (Karın)",
-                            setsReps: "2 set x 15-20 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Sırtüstü yere uzanın, dizler bükülü, eller başın arkasında veya göğüste çapraz. Karın kaslarınızı sıkarak omuzlarınızı yerden kaldırın ve yavaşça indirin. Boynunuzu çekmeyin, karın kaslarınızla kalkın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Crunch+Egzersizi+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Karın+Kası+Crunch+Hareketleri"
-                        },
-                        {
-                            name: "Leg Raises (Karın)",
-                            setsReps: "2 set x 10-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Sırtüstü yere uzanın, eller kalçanın altında veya yanda. Bacaklarınızı düz veya hafif bükülü şekilde yukarı kaldırın ve yavaşça indirin. Belinizin yerden kalkmamasına dikkat edin, karın kaslarınızı kullanın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Bacak+Kaldırma+Karın+Egzersizi",
-                            videoLink2: "https://www.youtube.com/results?search_query=Leg+Raise+Doğru+Form"
-                        },
-                    ],
-                    estimatedCaloriesBurned: 400 // Tahmini kalori yakımı ayarlandı
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Kırmızı Mercimek Yemeği (400g - 2 kase), Izgara Köfte (200g - yaklaşık 6-8 adet - ev yapımı, az yağlı), Yoğurt (250g - 1.5 kase - az yağlı), Tam Buğday Lavaş (2 adet), Salata (150g - 1 kase), Zeytinyağı (2 yemek kaşığı)",
-                        calories: "~1660 kcal",
-                        protein: "100g",
-                        carbs: "180g",
-                        fat: "60g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Tavuklu Nohut Yemeği (300g), Bulgur Pilavı (1.5 su bardağı), Cacık (200g), Tam Buğday Ekmek (2 dilim), Yeşil Salata (150g)",
-                        calories: "~1550 kcal",
-                        protein: "90g",
-                        carbs: "160g",
-                        fat: "55g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Yulaf Lapası (50g yulaf - 4 yk, 200ml süt - 1 su bardağı), Meyve (1 porsiyon), Ceviz (3-4 adet)",
-                            calories: "~400 kcal",
-                            protein: "15g", carbs: "50g", fat: "15g"
-                        },
-                        dinner: {
-                            meal: "Izgara Tavuk (150g - 1 orta parça), Sebze Sote (200g - 1.5 kase), Bulgur Pilavı (1 su bardağı)",
-                            calories: "~650 kcal",
-                            protein: "45g", carbs: "60g", fat: "20g"
-                        },
-                        totalCalories: "~1050 kcal",
-                        totalProtein: "60g",
-                        totalCarbs: "110g",
-                        totalFat: "35g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Haşlanmış Yumurta (2 adet), Tam Buğday Ekmek (1 dilim), Avokado (yarım), Domates, Salatalık",
-                            calories: "~480 kcal",
-                            protein: "22g", carbs: "35g", fat: "30g"
-                        },
-                        dinner: {
-                            meal: "Fırında Sebzeli Balık (200g balık, 250g sebze), Kinoa (1 su bardağı)",
-                            calories: "~620 kcal",
-                            protein: "40g", carbs: "65g", fat: "20g"
-                        },
-                        totalCalories: "~1100 kcal",
-                        totalProtein: "62g",
-                        totalCarbs: "100g",
-                        totalFat: "50g"
-                    }
+                day: 2,
+                breakfast: [
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)"
+                ],
+                dinner: [
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)"
                 ]
             },
-            // Gün 3: Çarşamba
             {
-                dayOfWeek: "Çarşamba",
-                morningWorkout: {
-                    name: "Kardiyo",
-                    duration: "45 dk",
-                    instructions: "Yerinde Koşu / Merdiven Çıkma (Varsa) (10 dk ısınma, 30 dk ana, 5 dk soğuma.)",
-                    estimatedCaloriesBurned: 350
-                },
-                eveningWorkout: {
-                    name: "Üst Vücut Ağırlık (Evde, 5kg Dambıl ile)",
-                    duration: "60 dk", // Süre azaltıldı
-                    exercises: [
-                        {
-                            name: "Push-ups (Şınav)",
-                            setsReps: "2 set x Maksimum tekrar (dizler üzerinde veya duvara karşı)", // Başlangıç seviyesi için kolaylaştırıldı
-                            howTo: "Yere yüzüstü uzanın, eller omuz genişliğinden biraz daha açık. Vücudunuzu düz tutarak göğsünüzü yere yaklaştırın ve yukarı itin. Dizlerinizin üzerinde yaparak kolaylaştırabilirsiniz. Göğüs kaslarınızı sıkın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Şınav+Nasıl+Çekilir",
-                            videoLink2: "https://www.youtube.com/results?search_query=Doğru+Şınav+Teknikleri"
-                        },
-                        {
-                            name: "Dumbbell Overhead Press (Ayakta)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Ayakta, her elde bir dambıl tutun, avuç içleri öne baksın. Dambılları başınızın üzerine doğru itin ve kontrollü indirin. Omuzlarınızın ön kısmını hedefleyin, belinizi zorlamayın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dambıl+Omuz+Presi+Doğru+Form",
-                            videoLink2: "https://www.youtube.com/results?search_query=Ayakta+Dambıl+Omuz+Antrenmanı"
-                        },
-                        {
-                            name: "Dumbbell Bent-Over Row (İki Kol)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Dizler hafif bükülü, kalçadan öne eğilin, sırt düz. Her elde bir dambıl tutun. Dambılları karın bölgenize doğru çekin ve yavaşça indirin. Kürek kemiklerinizi sıkın, sırtınızı düz tutmaya odaklanın.",
-                            videoLink: "https://www.youtube.com/results?search_query=İki+Kol+Dambıl+Sırt+Çekiş",
-                            videoLink2: "https://www.youtube.com/results?search_query=Sırt+Kası+Dambıl+Egzersizleri"
-                        },
-                        {
-                            name: "Dumbbell Front Raise (Omuz Ön)",
-                            setsReps: "2 set x 12-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun. Kollarınızı düz tutarak dambılları omuz hizasına kadar önünüze doğru kaldırın ve kontrollü indirin. Sadece omuzlarınızdan güç alın, sallanmaktan kaçının.",
-                            videoLink: "https://www.youtube.com/results?search_query=Öne+Kaldırış+Dambıl+Omuz",
-                            videoLink2: "https://www.youtube.com/results?search_query=Dambıl+Ön+Omuz+Egzersizi"
-                        },
-                        {
-                            name: "Hammer Curl (Pazı)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun, avuç içleri birbirine baksın. Dambılları omuzlarınıza doğru kaldırın ve kontrollü indirin. Pazı ve ön kol kaslarınızı hissedin, dirseklerinizi sabit tutun.",
-                            videoLink: "https://www.youtube.com/results?search_query=Hammer+Curl+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Dambıl+Hammer+Curl+Teknikleri"
-                        },
-                        {
-                            name: "Dumbbell Overhead Triceps Extension (Arka Kol)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Bir dambılı iki elinizle kavrayın, başınızın üzerinde tutun. Dirseklerinizi bükerek dambılı başınızın arkasına indirin ve yukarı itin. Dirsekleriniz sabit kalsın, omuzlarınızdan destek almayın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dambıl+Overhead+Triceps+Uzatma",
-                            videoLink2: "https://www.youtube.com/results?search_query=Arka+Kol+Dambıl+Uzatma"
-                        },
-                        {
-                            name: "Russian Twists (Karın Oblique)",
-                            setsReps: "2 set x 15-20 tekrar (her iki taraf)", // Set/Tekrar azaltıldı
-                            howTo: "Yere oturun, dizler bükülü, ayaklar yerde veya havada. Sırtınızı hafifçe geriye yaslayın. Ellerinizle bir dambıl tutarak gövdenizi sağa ve sola çevirin. Karın kaslarınızı sıkın, belinizi zorlamayın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Russian+Twist+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Yan+Karın+Kası+Russian+Twist"
-                        },
-                    ],
-                    estimatedCaloriesBurned: 400 // Tahmini kalori yakımı ayarlandı
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Fırında Tavuk But (250g - 1 büyük but), Fırınlanmış Sebzeler (300g - 2 kase - brokoli, havuç, biber), Patates Püresi (250g - 1.5 kase - sütsüz/az yağlı), Salata (150g - 1 kase), Zeytinyağı (2 yemek kaşığı)",
-                        calories: "~1200 kcal",
-                        protein: "80g",
-                        carbs: "120g",
-                        fat: "45g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Dana Kıymalı Sebzeli Güveç (400g), Tam Buğday Ekmek (2 dilim), Yoğurt (250g), Salata (150g)",
-                        calories: "~1300 kcal",
-                        protein: "90g",
-                        carbs: "130g",
-                        fat: "50g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Peynirli Omlet (2 yumurta, 50g az yağlı peynir), Tam Buğday Ekmek (1 dilim), Yeşil Biber, Maydanoz",
-                            calories: "~400 kcal",
-                            protein: "28g", carbs: "30g", fat: "20g"
-                        },
-                        dinner: {
-                            meal: "Sebzeli Tavuk Sote (200g tavuk - 1.5 kase, 250g sebze - 2 kase), Esmer Pirinç (1 su bardağı)",
-                            calories: "~600 kcal",
-                            protein: "45g", carbs: "70g", fat: "15g"
-                        },
-                        totalCalories: "~1000 kcal",
-                        totalProtein: "73g",
-                        totalCarbs: "100g",
-                        totalFat: "35g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Haşlanmış Yumurta (2 adet), Tam Buğday Simit (yarım), Beyaz Peynir (30g), Domates, Salatalık",
-                            calories: "~420 kcal",
-                            protein: "20g", carbs: "50g", fat: "15g"
-                        },
-                        dinner: {
-                            meal: "Kuru Fasulye Yemeği (300g), Bulgur Pilavı (1 su bardağı), Turşu (küçük porsiyon)",
-                            calories: "~600 kcal",
-                            protein: "35g", carbs: "80g", fat: "15g"
-                        },
-                        totalCalories: "~1020 kcal",
-                        totalProtein: "55g",
-                        totalCarbs: "130g",
-                        totalFat: "30g"
-                    }
+                day: 3,
+                breakfast: [
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)"
+                ],
+                dinner: [
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)"
                 ]
             },
-            // Gün 4: Perşembe
             {
-                dayOfWeek: "Perşembe",
-                morningWorkout: {
-                    name: "Aktif Dinlenme",
-                    duration: "60 dk",
-                    instructions: "Tempolu Yürüyüş / Esneme / Yoga (Kaslarınızı rahatlatın, esnekliğinizi artırın.)",
-                    estimatedCaloriesBurned: 200
-                },
-                eveningWorkout: {
-                    name: "Dinlenme",
-                    duration: "Yok",
-                    exercises: [],
-                    estimatedCaloriesBurned: 0
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Mercimek Çorbası (400g - 2 kase - kremasız), Izgara Tavuk Şiş (200g - 2-3 şiş - ev yapımı), Tam Tahıllı Lavaş (2 adet), Büyük Yeşil Salata (250g - büyük bir kase), Zeytinyağı (2 yemek kaşığı)",
-                        calories: "~1300 kcal",
-                        protein: "90g",
-                        carbs: "140g",
-                        fat: "40g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Ton Balıklı Salata (200g ton balığı, 300g karışık yeşillik, domates, salatalık, mısır, zeytinyağı 3 yemek kaşığı), Tam Buğday Kraker (8 adet)",
-                        calories: "~1250 kcal",
-                        protein: "70g",
-                        carbs: "100g",
-                        fat: "60g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Haşlanmış Yumurta (2 adet), Tam Buğday Ekmek (1 dilim), Az Yağlı Peynir (30g), Salatalık, Maydanoz",
-                            calories: "~350 kcal",
-                            protein: "20g", carbs: "35g", fat: "15g"
-                        },
-                        dinner: {
-                            meal: "Sebzeli Bezelye Yemeği (300g - 1.5 kase), Yoğurt (200g - 1 su bardağı), Tam Buğday Ekmek (1 dilim)",
-                            calories: "~500 kcal",
-                            protein: "25g", carbs: "70g", fat: "15g"
-                        },
-                        totalCalories: "~850 kcal",
-                        totalProtein: "45g",
-                        totalCarbs: "105g",
-                        totalFat: "30g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Yumurta (1 adet), Beyaz Peynir (50g), Tam Buğday Ekmek (1 dilim), Zeytin (5 adet), Biber",
-                            calories: "~380 kcal",
-                            protein: "20g", carbs: "30g", fat: "20g"
-                        },
-                        dinner: {
-                            meal: "Izgara Köfte (150g), Bol Salata (200g), Ayran (1 su bardağı)",
-                            calories: "~550 kcal",
-                            protein: "40g", carbs: "40g", fat: "25g"
-                        },
-                        totalCalories: "~930 kcal",
-                        totalProtein: "60g",
-                        totalCarbs: "70g",
-                        totalFat: "45g"
-                    }
+                day: 4,
+                breakfast: [
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)"
+                ],
+                dinner: [
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)"
                 ]
             },
-            // Gün 5: Cuma
             {
-                dayOfWeek: "Cuma",
-                morningWorkout: {
-                    name: "Kardiyo",
-                    duration: "45 dk",
-                    instructions: "Yerinde Koşu / Jumping Jacks / Yüksek Dizler (10 dk ısınma, 30 dk ana, 5 dk soğuma.)",
-                    estimatedCaloriesBurned: 350
-                },
-                eveningWorkout: {
-                    name: "Tüm Vücut Ağırlık (Evde, 5kg Dambıl ile)",
-                    duration: "60 dk", // Süre azaltıldı
-                    exercises: [
-                        {
-                            name: "Dumbbell Sumo Squat (Bacak)",
-                            setsReps: "2 set x 12-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Ayaklar omuz genişliğinden daha açık, ayak uçları dışarı baksın. Bir dambılı iki elinizle aşağıda tutun. Kalçadan geriye atarak çömelin ve yukarı kalkın. İç bacaklarınızı hissedin, dizlerinizi ayak uçlarınızla aynı yöne doğru itin.",
-                            videoLink: "https://www.youtube.com/results?search_query=Sumo+Squat+Dambıl+ile",
-                            videoLink2: "https://www.youtube.com/results?search_query=İç+Bacak+Sumo+Squat+Egzersizi"
-                        },
-                        {
-                            name: "Dumbbell Floor Press (Göğüs)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Yere sırtüstü uzanın, dizler bükülü, ayaklar yerde. Her elde bir dambıl tutun, dirsekler yere yakın. Dambılları göğsünüzün üzerinden yukarı itin ve kontrollü indirin. Hareketi yavaş ve kontrollü yapın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dumbbell+Floor+Press+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Evde+Dambıl+Göğüs+Antrenmanı"
-                        },
-                        {
-                            name: "Single Arm Dumbbell Row (Sırt)",
-                            setsReps: "2 set x 8-10 tekrar (her kol)", // Set/Tekrar azaltıldı
-                            howTo: "Bir elinizi ve dizinizi sağlam bir sandalyeye koyun, diğer elinizde dambıl olsun. Sırtınız düz, yere paralel. Dambılı karın bölgenize doğru çekin, kürek kemiğinizi sıkın ve yavaşça indirin. Tek taraflı çalışarak kası daha iyi hissedin.",
-                            videoLink: "https://www.youtube.com/results?search_query=Tek+Kol+Dambıl+Row+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Sırt+Kası+İçin+Dambıl+Egzersizleri"
-                        },
-                        {
-                            name: "Dumbbell Arnold Press (Omuz)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun, avuç içleri size baksın. Dambılları yukarı iterek kaldırırken bileklerinizi çevirerek avuç içlerinin öne bakmasını sağlayın ve kontrollü indirin. Omuzlarınızın tüm kısımlarını çalıştırın, hareketi acele etmeden yapın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Arnold+Press+Dambıl+Omuz",
-                            videoLink2: "https://www.youtube.com/results?search_query=Arnold+Press+Nasıl+Yapılır"
-                        },
-                        {
-                            name: "Dumbbell Bicep Curl (Pazı)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Ayakta veya oturarak, her elde bir dambıl tutun. Avuç içleri öne baksın. Dambılları dirseklerinizi bükerek omuzlarınıza doğru kaldırın ve kontrollü indirin. Pazı kaslarınızı sıkın, dirseklerinizi vücudunuza yakın tutun.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dambıl+Pazı+Kıvırma+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Evde+Kol+Kası+Antrenmanı+Dambıl"
-                        },
-                        {
-                            name: "Chair Dips (Arka Kol)",
-                            setsReps: "2 set x Maksimum tekrar (bacaklar bükülü daha kolay)", // Başlangıç seviyesi için kolaylaştırıldı
-                            howTo: "Sırtınız bir sandalyeye dönük, ellerinizi sandalyenin kenarına koyun. Bacaklarınızı uzatın veya bükün. Dirseklerinizi bükerek vücudunuzu aşağı indirin ve yukarı itin. Dirsekleriniz geriye doğru bükülsün.",
-                            videoLink: "https://www.youtube.com/results?search_query=Sandalye+Dips+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Triceps+Dips+Evde"
-                        },
-                        {
-                            name: "Plank (Karın)",
-                            setsReps: "2 set x 20-30 saniye (veya maksimum tutuş süresi)", // Set/Tekrar azaltıldı
-                            howTo: "Yere yüzüstü uzanın. Dirsekleriniz ve ayak parmak uçlarınız üzerinde kendinizi kaldırın. Vücudunuz düz bir çizgi halinde olmalı, karın kaslarınızı sıkın. Kalçanız ne çok yukarıda ne çok aşağıda olsun.",
-                            videoLink: "https://www.youtube.com/results?search_query=Plank+Egzersizi+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Doğru+Plank+Formu"
-                        },
-                    ],
-                    estimatedCaloriesBurned: 400 // Tahmini kalori yakımı ayarlandı
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Izgara Levrek (350g - orta boy bir balık), Mevsim Salata (300g - bol yeşillikli, büyük bir kase), Nohut Salatası (200g - 1.5 kase - domates, salatalık, zeytinyağlı), Zeytinyağı (3 yemek kaşığı)",
-                        calories: "~1400 kcal",
-                        protein: "100g",
-                        carbs: "100g",
-                        fat: "65g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Fırında Sebzeli Tavuk Baget (250g tavuk, 300g sebze - patates, soğan, biber), Yoğurt (200g), Tam Buğday Ekmek (2 dilim)",
-                        calories: "~1350 kcal",
-                        protein: "90g",
-                        carbs: "120g",
-                        fat: "50g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Menemen (2 yumurta, bol domates/biber), Tam Buğday Ekmek (1 dilim), Beyaz Peynir (30g)",
-                            calories: "~450 kcal",
-                            protein: "25g", carbs: "40g", fat: "20g"
-                        },
-                        dinner: {
-                            meal: "Izgara Somon (150g - küçük bir fileto), Buharda Brokoli (200g - 1.5 kase), Kinoa (1 su bardağı)",
-                            calories: "~650 kcal",
-                            protein: "40g", carbs: "60g", fat: "25g"
-                        },
-                        totalCalories: "~1100 kcal",
-                        totalProtein: "65g",
-                        totalCarbs: "100g",
-                        totalFat: "45g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Yulaf Lapası (50g yulaf, 200ml su/süt), Kuru Kayısı (3 adet), Ceviz (3 adet)",
-                            calories: "~400 kcal",
-                            protein: "12g", carbs: "60g", fat: "15g"
-                        },
-                        dinner: {
-                            meal: "Fırında Tavuk Göğsü (150g), Yeşil Salata (200g), Bulgur Pilavı (1 su bardağı)",
-                            calories: "~580 kcal",
-                            protein: "45g", carbs: "60g", fat: "10g"
-                        },
-                        totalCalories: "~980 kcal",
-                        totalProtein: "57g",
-                        totalCarbs: "120g",
-                        totalFat: "25g"
-                    }
+                day: 5,
+                breakfast: [
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)"
+                ],
+                dinner: [
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)"
                 ]
             },
-            // Gün 6: Cumartesi
             {
-                dayOfWeek: "Cumartesi",
-                morningWorkout: {
-                    name: "HIIT Kardiyo",
-                    duration: "20 dk", // Süre azaltıldı
-                    instructions: "Burpees / Mountain Climbers / Jumping Lunges (5 dk ısınma, 8-10 döngü 30s egzersiz/30s dinlenme, 5 dk soğuma.)", // Döngü azaltıldı
-                    estimatedCaloriesBurned: 300 // Tahmini kalori yakımı ayarlandı
-                },
-                eveningWorkout: {
-                    name: "Alt Vücut & Karın Ağırlık (Evde, 5kg Dambıl ile)",
-                    duration: "60 dk", // Süre azaltıldı
-                    exercises: [
-                        {
-                            name: "Dumbbell Squat (Bacak)",
-                            setsReps: "2 set x 12-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun, kollar yanda. Ayaklar omuz genişliğinde açık. Kalçadan geriye atarak çömelin ve yukarı kalkın. Dizleriniz ayak uçlarını geçmesin, sırtınız düz kalsın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dambıl+Squat+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Evde+Dambıl+Bacak+Egzersizi"
-                        },
-                        {
-                            name: "Dumbbell Walking Lunge (Bacak)",
-                            setsReps: "2 set x 8-10 tekrar (her bacak)", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun. İleri doğru adım atarak lunge yapın, ardından diğer bacağınızla devam edin, yürüyerek ilerleyin. Dengenizi koruyun, yavaş ve kontrollü yapın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Yürüyen+Lunge+Dambıl+ile",
-                            videoLink2: "https://www.youtube.com/results?search_query=Dambıl+Yürüyen+Lunge+Teknikleri"
-                        },
-                        {
-                            name: "Single Leg Romanian Deadlift (Arka Bacak/Denge)",
-                            setsReps: "2 set x 8-10 tekrar (her bacak)", // Set/Tekrar azaltıldı
-                            howTo: "Bir dambılı tek elinizle tutun. Dambıl tuttuğunuz tarafın bacağını hafif bükün, diğer bacağınızı geriye doğru uzatırken kalçadan öne eğilin. Sırtınız düz olsun. Arka bacağınızdaki gerilmeyi hissedin, dengeye odaklanın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Tek+Bacak+Romen+Deadlift+Dambıl",
-                            videoLink2: "https://www.youtube.com/results?search_query=Denge+ve+Arka+Bacak+Egzersizi"
-                        },
-                        {
-                            name: "Wall Sit (Bacak İzometrik)",
-                            setsReps: "2 set x 20-30 saniye (veya maksimum tutuş süresi)", // Set/Tekrar azaltıldı
-                            howTo: "Sırtınızı duvara yaslayın, dizler 90 derece bükülü, sanki bir sandalyede oturuyormuş gibi. Bu pozisyonda mümkün olduğunca uzun süre kalın. Bacaklarınızın ön kısmını hissedin.",
-                            videoLink: "https://www.youtube.com/results?search_query=Duvar+Oturuşu+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Wall+Sit+Egzersizi"
-                        },
-                        {
-                            name: "Calf Raises (Baldır)",
-                            setsReps: "2 set x 15-20 tekrar (her bacak)", // Set/Tekrar azaltıldı
-                            howTo: "Ayakta, bir elinizle duvardan destek alın. Parmak ucunuzda yükselin ve baldırınızı sıkın. Yavaşça topuğunuzu indirin. Tek bacakla daha zorlayıcı olacaktır.",
-                            videoLink: "https://www.youtube.com/results?search_query=Baldır+Kaldırma+Egzersizi",
-                            videoLink2: "https://www.youtube.com/results?search_query=Ayakta+Baldır+Kası+Geliştirme"
-                        },
-                        {
-                            name: "Bicycle Crunches (Karın)",
-                            setsReps: "2 set x 15-20 tekrar (her iki taraf)", // Set/Tekrar azaltıldı
-                            howTo: "Sırtüstü yere uzanın, eller başın arkasında. Dizlerinizi bükün. Bir dirseğinizi karşı dizinize değdirirken diğer bacağınızı uzatın. Bisiklet sürer gibi hareket edin. Karın kaslarınızı sıkın, boynunuzu zorlamayın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Bisiklet+Mekik+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Bicycle+Crunch+Teknikleri"
-                        },
-                        {
-                            name: "Side Plank (Karın Oblique)",
-                            setsReps: "2 set x 20-30 saniye (veya maksimum tutuş süresi) (her taraf)", // Set/Tekrar azaltıldı
-                            howTo: "Yan yatın, bir dirseğiniz ve ayaklarınızın yan tarafı üzerinde kendinizi kaldırın. Vücudunuz düz bir çizgi halinde olsun. Yan karın kaslarınızı hissedin.",
-                            videoLink: "https://www.youtube.com/results?search_query=Yan+Plank+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Side+Plank+Doğru+Form"
-                        },
-                    ],
-                    estimatedCaloriesBurned: 400 // Tahmini kalori yakımı ayarlandı
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Haşlanmış Tavuk Göğsü (250g - 1 büyük parça), Mercimek Salatası (250g - 1.5 kase - haşlanmış mercimek, maydanoz, domates, zeytinyağlı), Az Yağlı Süzme Peynir (150g - 3-4 yemek kaşığı), Tam Tahıllı Kraker (6 adet), Salata (150g - 1 kase), Zeytinyağı (2 yemek kaşığı)",
-                        calories: "~1500 kcal",
-                        protein: "130g",
-                        carbs: "120g",
-                        fat: "55g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Izgara Dana Biftek (200g), Fırında Tatlı Patates (250g), Buharda Brokoli (200g), Yeşil Salata (150g), Zeytinyağı (2 yemek kaşığı)",
-                        calories: "~1450 kcal",
-                        protein: "110g",
-                        carbs: "100g",
-                        fat: "60g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Tam Buğday Tost (2 dilim ekmek, 50g az yağlı peynir, domates), Ayran (1 su bardağı)",
-                            calories: "~400 kcal",
-                            protein: "20g", carbs: "50g", fat: "15g"
-                        },
-                        dinner: {
-                            meal: "Izgara Balık (Levrek/Çupra - 200g - 1 orta boy), Bol Salata (250g - 2 kase), Zeytinyağı (2 yemek kaşığı)",
-                            calories: "~600 kcal",
-                            protein: "45g", carbs: "30g", fat: "30g"
-                        },
-                        totalCalories: "~1000 kcal",
-                        totalProtein: "65g",
-                        totalCarbs: "80g",
-                        totalFat: "45g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Yumurta (2 adet), Tam Buğday Ekmek (1 dilim), Lor Peyniri (50g), Biber",
-                            calories: "~400 kcal",
-                            protein: "28g", carbs: "30g", fat: "20g"
-                        },
-                        dinner: {
-                            meal: "Sebzeli Tavuklu Çorba (300g), Tam Buğday Kraker (4 adet), Yoğurt (150g)",
-                            calories: "~550 kcal",
-                            protein: "35g", carbs: "60g", fat: "15g"
-                        },
-                        totalCalories: "~950 kcal",
-                        totalProtein: "63g",
-                        totalCarbs: "90g",
-                        totalFat: "35g"
-                    }
+                day: 6,
+                breakfast: [
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)"
+                ],
+                dinner: [
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)"
                 ]
             },
-            // Gün 7: Pazar
             {
-                dayOfWeek: "Pazar",
-                morningWorkout: {
-                    name: "Dinlenme",
-                    duration: "Yok",
-                    instructions: "Vücudunuzun tamamen toparlanmasına izin verin.",
-                    estimatedCaloriesBurned: 0
-                },
-                eveningWorkout: {
-                    name: "Dinlenme",
-                    duration: "Yok",
-                    exercises: [],
-                    estimatedCaloriesBurned: 0
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Fasulye Piyazı (300g - 1.5 kase - haşlanmış kuru fasulye, domates, soğan, yumurta, zeytinyağlı), Izgara Dana Antrikot (200g - orta boy bir dilim), Büyük Yeşil Salata (250g - büyük bir kase), Zeytinyağı (2 yemek kaşığı)",
-                        calories: "~1600 kcal",
-                        protein: "110g",
-                        carbs: "150g",
-                        fat: "60g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Zeytinyağlı Enginar (300g), Izgara Somon (200g), Bulgur Pilavı (1.5 su bardağı), Bol Yeşillikli Salata (200g)",
-                        calories: "~1500 kcal",
-                        protein: "90g",
-                        carbs: "140g",
-                        fat: "60g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Lor Peynirli Omlet (2 yumurta, 100g lor peyniri), Tam Buğday Ekmek (1 dilim), Yeşil Zeytin (5 adet)",
-                            calories: "~400 kcal",
-                            protein: "30g", carbs: "30g", fat: "20g"
-                        },
-                        dinner: {
-                            meal: "Fasulye Piyazı (200g - 1 kase), Izgara Köfte (150g - 4-5 adet), Salata (150g - 1 kase)",
-                            calories: "~600 kcal",
-                            protein: "40g", carbs: "50g", fat: "25g"
-                        },
-                        totalCalories: "~1000 kcal",
-                        totalProtein: "70g",
-                        totalCarbs: "80g",
-                        totalFat: "45g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Yulaf Lapası (50g yulaf, 200ml süt), Meyve (1 porsiyon), Tarçın",
-                            calories: "~380 kcal",
-                            protein: "15g", carbs: "55g", fat: "10g"
-                        },
-                        dinner: {
-                            meal: "Tavuklu Sebzeli Wrap (150g tavuk, bol sebze, 1 tam buğday lavaş), Ayran (1 su bardağı)",
-                            calories: "~600 kcal",
-                            protein: "40g", carbs: "60g", fat: "20g"
-                        },
-                        totalCalories: "~980 kcal",
-                        totalProtein: "55g",
-                        totalCarbs: "115g",
-                        totalFat: "30g"
-                    }
+                day: 7,
+                breakfast: [
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)"
+                ],
+                dinner: [
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)"
                 ]
             },
+            // Hafta 2 (Menüleri tekrarlayarak devam ediyoruz)
+            {
+                day: 8,
+                breakfast: [
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)"
+                ],
+                dinner: [
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)"
+                ]
+            },
+            {
+                day: 9,
+                breakfast: [
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)"
+                ],
+                dinner: [
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)"
+                ]
+            },
+            {
+                day: 10,
+                breakfast: [
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)"
+                ],
+                dinner: [
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)"
+                ]
+            },
+            {
+                day: 11,
+                breakfast: [
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)"
+                ],
+                dinner: [
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)"
+                ]
+            },
+            {
+                day: 12,
+                breakfast: [
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)"
+                ],
+                dinner: [
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)"
+                ]
+            },
+            {
+                day: 13,
+                breakfast: [
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)"
+                ],
+                dinner: [
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)"
+                ]
+            },
+            {
+                day: 14,
+                breakfast: [
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)"
+                ],
+                dinner: [
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)"
+                ]
+            },
+            // Hafta 3
+            {
+                day: 15,
+                breakfast: [
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)"
+                ],
+                dinner: [
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)"
+                ]
+            },
+            {
+                day: 16,
+                breakfast: [
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)"
+                ],
+                dinner: [
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)"
+                ]
+            },
+            {
+                day: 17,
+                breakfast: [
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)"
+                ],
+                dinner: [
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)"
+                ]
+            },
+            {
+                day: 18,
+                breakfast: [
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)"
+                ],
+                dinner: [
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)"
+                ]
+            },
+            {
+                day: 19,
+                breakfast: [
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)"
+                ],
+                dinner: [
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)"
+                ]
+            },
+            {
+                day: 20,
+                breakfast: [
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)"
+                ],
+                dinner: [
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)"
+                ]
+            },
+            {
+                day: 21,
+                breakfast: [
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)"
+                ],
+                dinner: [
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)"
+                ]
+            },
+            // Hafta 4
+            {
+                day: 22,
+                breakfast: [
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)"
+                ],
+                dinner: [
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)"
+                ]
+            },
+            {
+                day: 23,
+                breakfast: [
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)"
+                ],
+                dinner: [
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)"
+                ]
+            },
+            {
+                day: 24,
+                breakfast: [
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)"
+                ],
+                dinner: [
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)"
+                ]
+            },
+            {
+                day: 25,
+                breakfast: [
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)"
+                ],
+                dinner: [
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)"
+                ]
+            },
+            {
+                day: 26,
+                breakfast: [
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)"
+                ],
+                dinner: [
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)"
+                ]
+            },
+            {
+                day: 27,
+                breakfast: [
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)"
+                ],
+                dinner: [
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)"
+                ]
+            },
+            {
+                day: 28,
+                breakfast: [
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)"
+                ],
+                dinner: [
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)"
+                ]
+            },
+            {
+                day: 29,
+                breakfast: [
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)"
+                ],
+                dinner: [
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)"
+                ]
+            },
+            {
+                day: 30,
+                breakfast: [
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
+                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)"
+                ],
+                dinner: [
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
+                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
+                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)"
+                ]
+            }
         ];
 
+        let currentDayIndex = 0; // Start from Day 1 (index 0)
 
-        // İkinci haftanın rutinleri (egzersizler ve yemekler)
-        const week2Routine = [
-            // Gün 8: Pazartesi
-            {
-                dayOfWeek: "Pazartesi",
-                morningWorkout: {
-                    name: "Kardiyo",
-                    duration: "45 dk",
-                    instructions: "Hızlı Tempolu Yürüyüş / Hafif Koşu (Nabzınızı hafifçe artırın, sohbet edebilecek kadar rahat olun.)",
-                    estimatedCaloriesBurned: 350
-                },
-                eveningWorkout: {
-                    name: "Üst Vücut Ağırlık (Evde, 5kg Dambıl ile)",
-                    duration: "60 dk", // Süre azaltıldı
-                    exercises: [
-                        {
-                            name: "Dumbbell Incline Floor Press (Göğüs)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Sırtınızı hafifçe yükseltmek için birkaç yastık veya katlanmış battaniye kullanın. Yere sırtüstü uzanın, dizler bükülü, ayaklar yerde. Her elde bir dambıl tutun, dirsekler yere yakın. Dambılları göğsünüzün üzerinden yukarı itin ve kontrollü indirin. Göğsünüzün üst kısmını hedefleyin.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dambıl+Eğimli+Yer+Presi",
-                            videoLink2: "https://www.youtube.com/results?search_query=Üst+Göğüs+Dambıl+Egzersizi+Evde"
-                        },
-                        {
-                            name: "Dumbbell Arnold Press (Omuz)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun, avuç içleri size baksın. Dambılları yukarı iterek kaldırırken bileklerinizi çevirerek avuç içlerinin öne bakmasını sağlayın ve kontrollü indirin. Omuzlarınızın tüm kısımlarını çalıştırın, hareketi acele etmeden yapın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Arnold+Press+Dambıl+Omuz",
-                            videoLink2: "https://www.youtube.com/results?search_query=Arnold+Press+Nasıl+Yapılır"
-                        },
-                        {
-                            name: "Dumbbell Pullover (Göğüs/Sırt)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Yere sırtüstü uzanın, bir dambılı iki elinizle kavrayın ve başınızın üzerinde tutun. Kollarınızı hafif bükülü tutarak dambılı başınızın arkasına doğru indirin ve göğüs/sırt kaslarınızla yukarı çekin. Göğüs kafesinizi genişletin.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dambıl+Pullover+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Göğüs+ve+Sırt+için+Dambıl+Pullover"
-                        },
-                        {
-                            name: "Dumbbell Front Raise (Omuz Ön)",
-                            setsReps: "2 set x 12-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun. Kollarınızı düz tutarak dambılları omuz hizasına kadar önünüze doğru kaldırın ve kontrollü indirin. Sadece omuzlarınızdan güç alın, sallanmaktan kaçının.",
-                            videoLink: "https://www.youtube.com/results?search_query=Öne+Kaldırış+Dambıl+Omuz",
-                            videoLink2: "https://www.youtube.com/results?search_query=Dambıl+Ön+Omuz+Egzersizi"
-                        },
-                        {
-                            name: "Concentration Curl (Pazı)",
-                            setsReps: "2 set x 8-10 tekrar (her kol)", // Set/Tekrar azaltıldı
-                            howTo: "Bir sandalyeye oturun, dirseğinizi iç bacağınıza dayayın. Dambılı tek elinizle tutun. Pazı kasınızı sıkarak dambılı omuzunuza doğru kaldırın ve yavaşça indirin. Tamamen izole çalışın, hareketi acele etmeyin.",
-                            videoLink: "https://www.youtube.com/results?search_query=Konsantrasyon+Curl+Dambıl",
-                            videoLink2: "https://www.youtube.com/results?search_query=İzole+Pazı+Egzersizi"
-                        },
-                        {
-                            name: "Overhead Triceps Extension (Tek Dambıl)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Bir dambılı iki elinizle kavrayın, başınızın üzerinde tutun. Dirseklerinizi bükerek dambılı başınızın arkasına indirin ve yukarı itin. Dirsekleriniz sabit kalsın, omuzlarınızdan destek almayın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dambıl+Overhead+Triceps+Uzatma",
-                            videoLink2: "https://www.youtube.com/results?search_query=Arka+Kol+Dambıl+Uzatma"
-                        },
-                        {
-                            name: "Side Plank (Karın Oblique)",
-                            setsReps: "2 set x 20-30 saniye (veya maksimum tutuş süresi) (her taraf)", // Set/Tekrar azaltıldı
-                            howTo: "Yan yatın, bir dirseğiniz ve ayaklarınızın yan tarafı üzerinde kendinizi kaldırın. Vücudunuz düz bir çizgi halinde olsun. Yan karın kaslarınızı hissedin.",
-                            videoLink: "https://www.youtube.com/results?search_query=Yan+Plank+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Side+Plank+Doğru+Form"
-                        },
-                    ],
-                    estimatedCaloriesBurned: 400 // Tahmini kalori yakımı ayarlandı
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Fırında Hindi Göğsü (250g - 1 büyük parça), Fırında Karışık Kök Sebzeler (300g - 2 kase - havuç, patates, kereviz), Esmer Pirinç (2 su bardağı), Salata (150g - 1 kase), Zeytinyağı (2 yemek kaşığı)",
-                        calories: "~1500 kcal",
-                        protein: "120g",
-                        carbs: "150g",
-                        fat: "45g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Izgara Köfte (200g), Patates Püresi (250g), Mevsim Salata (250g), Ayran (1 su bardağı)",
-                        calories: "~1400 kcal",
-                        protein: "80g",
-                        carbs: "140g",
-                        fat: "60g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Haşlanmış Yumurta (2 adet), Tam Buğray Ekmek (2 dilim), Beyaz Peynir (50g), Domates, Salatalık",
-                            calories: "~450 kcal",
-                            protein: "25g", carbs: "40g", fat: "20g"
-                        },
-                        dinner: {
-                            meal: "Mercimek Yemeği (250g - 1.5 kase), Bulgur Pilavı (1 su bardağı), Yoğurt (150g - 1 kase)",
-                            calories: "~600 kcal",
-                            protein: "30g", carbs: "80g", fat: "20g"
-                        },
-                        totalCalories: "~1050 kcal",
-                        totalProtein: "55g",
-                        totalCarbs: "120g",
-                        totalFat: "40g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Peynirli Omlet (2 yumurta, 30g lor peyniri), Tam Buğday Ekmek (1 dilim), Yeşil Biber",
-                            calories: "~400 kcal",
-                            protein: "25g", carbs: "30g", fat: "20g"
-                        },
-                        dinner: {
-                            meal: "Tavuk Sote (150g), Sebze Sote (200g), Esmer Pirinç (1 su bardağı)",
-                            calories: "~580 kcal",
-                            protein: "40g", carbs: "60g", fat: "15g"
-                        },
-                        totalCalories: "~980 kcal",
-                        totalProtein: "65g",
-                        totalCarbs: "90g",
-                        totalFat: "35g"
-                    }
-                ]
-            },
-            // Gün 9: Salı
-            {
-                dayOfWeek: "Salı",
-                morningWorkout: {
-                    name: "HIIT Kardiyo",
-                    duration: "20 dk", // Süre azaltıldı
-                    instructions: "Yerinde Koşu / Jumping Jacks / Yüksek Dizler (5 dk ısınma. 20 sn tam gaz, 40 sn hafif tempo/dinlenme. 8-10 döngü. 5 dk soğuma.)", // Döngü azaltıldı
-                    estimatedCaloriesBurned: 300 // Tahmini kalori yakımı ayarlandı
-                },
-                eveningWorkout: {
-                    name: "Alt Vücut & Karın Ağırlık (Evde, 5kg Dambıl ile)",
-                    duration: "60 dk", // Süre azaltıldı
-                    exercises: [
-                        {
-                            name: "Goblet Squat (Bacak)",
-                            setsReps: "2 set x 12-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Bir dambılı dikey olarak iki elinizle göğsünüzün önünde tutun. Ayaklar omuz genişliğinde açık. Kalçanızı geriye atarak derin bir squat yapın ve yukarı kalkın. Dizleriniz ayak uçlarını geçmesin, sırtınız düz kalsın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Goblet+Squat+Teknikleri",
-                            videoLink2: "https://www.youtube.com/results?search_query=Dambıl+ile+Bacak+Antrenmanı+Evde"
-                        },
-                        {
-                            name: "Dumbbell Reverse Lunge (Bacak)",
-                            setsReps: "2 set x 8-10 tekrar (her bacak)", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun. Bir bacağınızı geriye doğru büyük bir adım atın, arka dizinizi yere yaklaştırın. Öndeki diziniz ayak ucunu geçmesin. Topuktan güç alarak başlangıç pozisyonuna dönün ve bacak değiştirin. Dengenizi koruyun, yavaş ve kontrollü yapın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Geriye+Lunge+Dambıl+ile+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Dambıl+Lunge+Egzersizi"
-                        },
-                        {
-                            name: "Dumbbell Romanian Deadlift (Arka Bacak/Sırt)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun, dizler hafif bükülü. Kalçadan öne doğru eğilin, sırtınızı düz tutun ve dambılları bacaklarınız boyunca indirin. Arka bacaklarınızdaki gerilmeyi hissedin. Kontrollü bir şekilde başlangıç pozisyonuna dönün, belinizi yuvarlamayın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Romen+Deadlift+Dambıl+ile",
-                            videoLink2: "https://www.youtube.com/results?search_query=Arka+Bacak+Egzersizleri+Evde"
-                        },
-                        {
-                            name: "Glute Bridge (Kalça)",
-                            setsReps: "2 set x 12-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Sırtüstü yere uzanın, dizler bükülü, ayaklar yerde. Kalçanızı yerden kaldırarak köprü oluşturun, kalçalarınızı sıkın. Yavaşça indirin. İsterseniz kalçanızın üzerine bir dambıl koyabilirsiniz.",
-                            videoLink: "https://www.youtube.com/results?search_query=Glute+Bridge+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Kalça+Köprüsü+Egzersizi"
-                        },
-                        {
-                            name: "Calf Raises (Baldır)",
-                            setsReps: "2 set x 15-20 tekrar (her bacak)", // Set/Tekrar azaltıldı
-                            howTo: "Ayakta, bir elinizle duvardan destek alın. Parmak ucunuzda yükselin ve baldırınızı sıkın. Yavaşça topuğunuzu indirin. Tek bacakla daha zorlayıcı olacaktır.",
-                            videoLink: "https://www.youtube.com/results?search_query=Baldır+Kaldırma+Egzersizi",
-                            videoLink2: "https://www.youtube.com/results?search_query=Ayakta+Baldır+Kası+Geliştirme"
-                        },
-                        {
-                            name: "Crunches (Karın)",
-                            setsReps: "2 set x 15-20 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Sırtüstü yere uzanın, dizler bükülü, eller başın arkasında veya göğüste çapraz. Karın kaslarınızı sıkarak omuzlarınızı yerden kaldırın ve yavaşça indirin. Boynunuzu çekmeyin, karın kaslarınızla kalkın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Crunch+Egzersizi+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Karın+Kası+Crunch+Hareketleri"
-                        },
-                        {
-                            name: "Leg Raises (Karın)",
-                            setsReps: "2 set x 10-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Sırtüstü yere uzanın, eller kalçanın altında veya yanda. Bacaklarınızı düz veya hafif bükülü şekilde yukarı kaldırın ve yavaşça indirin. Belinizin yerden kalkmamasına dikkat edin, karın kaslarınızı kullanın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Bacak+Kaldırma+Karın+Egzersizi",
-                            videoLink2: "https://www.youtube.com/results?search_query=Leg+Raise+Doğru+Form"
-                        },
-                    ],
-                    estimatedCaloriesBurned: 400 // Tahmini kalori yakımı ayarlandı
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Haşlanmış Nohut (250g - 1.5 kase), Ton Balığı (200g - 1 kutu - konserve, suyu süzülmüş), Büyük Yeşil Salata (250g - büyük bir kase), Zeytinyağı (3 yemek kaşığı), Tam Buğray Ekmeği (3 dilim)",
-                        calories: "~1700 kcal",
-                        protein: "100g",
-                        carbs: "180g",
-                        fat: "65g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Tavuklu Sebzeli Makarna (200g tavuk, 200g tam buğday makarna, 200g karışık sebze), Yoğurt (200g), Yeşil Salata (150g)",
-                        calories: "~1600 kcal",
-                        protein: "90g",
-                        carbs: "170g",
-                        fat: "50g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Peynirli Domatesli Tost (2 dilim tam buğday ekmeği, 50g az yağlı peynir, domates), Yeşil Çay",
-                            calories: "~380 kcal",
-                            protein: "20g", carbs: "45g", fat: "15g"
-                        },
-                        dinner: {
-                            meal: "Izgara Tavuk Şiş (150g - 2 şiş), Bulgur Pilavı (1 su bardağı), Çoban Salata (200g - 1.5 kase)",
-                            calories: "~650 kcal",
-                            protein: "40g", carbs: "70g", fat: "20g"
-                        },
-                        totalCalories: "~1030 kcal",
-                        totalProtein: "60g",
-                        totalCarbs: "115g",
-                        totalFat: "35g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Yumurta (2 adet), Tam Buğday Ekmek (1 dilim), Zeytin (5 adet), Peynir (30g), Salatalık",
-                            calories: "~400 kcal",
-                            protein: "25g", carbs: "35g", fat: "20g"
-                        },
-                        dinner: {
-                            meal: "Kırmızı Mercimek Köftesi (150g), Yoğurt (200g), Bol Salata (200g)",
-                            calories: "~550 kcal",
-                            protein: "30g", carbs: "70g", fat: "15g"
-                        },
-                        totalCalories: "~950 kcal",
-                        totalProtein: "55g",
-                        totalCarbs: "105g",
-                        totalFat: "35g"
-                    }
-                ]
-            },
-            // Gün 10: Çarşamba
-            {
-                dayOfWeek: "Çarşamba",
-                morningWorkout: {
-                    name: "Kardiyo",
-                    duration: "45 dk",
-                    instructions: "Yerinde Koşu / Merdiven Çıkma (Varsa) (10 dk ısınma, 30 dk ana, 5 dk soğuma.)",
-                    estimatedCaloriesBurned: 350
-                },
-                eveningWorkout: {
-                    name: "Üst Vücut Ağırlık (Evde, 5kg Dambıl ile)",
-                    duration: "60 dk", // Süre azaltıldı
-                    exercises: [
-                        {
-                            name: "Push-ups (Şınav - Ayaklar Yüksekte)",
-                            setsReps: "2 set x Maksimum tekrar (dizler üzerinde veya duvara karşı)", // Başlangıç seviyesi için kolaylaştırıldı
-                            howTo: "Ayaklarınızı sağlam bir sandalyeye koyarak şınav çekin. Bu, daha fazla ağırlığı göğsünüzde verir ve hareketi zorlaştırır. Başlangıç seviyesindeyseniz, ayaklarınız yerde normal şınav çekmeyi veya dizlerinizin üzerinde yapmayı deneyin. Göğüs kaslarınızı sıkın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Ayaklar+Yüksekte+Şınav+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=İleri+Seviye+Şınav+Teknikleri"
-                        },
-                        {
-                            name: "Dumbbell Overhead Press (Oturarak)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Bir sandalyede dik oturun. Her elde bir dambıl tutun, avuç içleri öne baksın. Dambılları başınızın üzerine doğru itin ve kontrollü indirin. Omuzlarınızın ön kısmını hedefleyin, belinizi zorlamayın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Oturarak+Dambıl+Omuz+Presi",
-                            videoLink2: "https://www.youtube.com/results?search_query=Dambıl+Omuz+Antrenmanı+Oturarak"
-                        },
-                        {
-                            name: "Dumbbell Renegade Row (Sırt/Karın)",
-                            setsReps: "2 set x 6-8 tekrar (her kol)", // Set/Tekrar azaltıldı, dengeye odaklanma vurgusu
-                            howTo: "Şınav pozisyonunda, ellerinizde dambıllar olsun. Bir dambılı karın bölgenize doğru çekin, diğer eliniz yerde sabit kalsın. Vücudunuzu düz tutun, kalçanız sallanmasın. Kontrollü indirin ve diğer kolla tekrarlayın. Karın kaslarınızı sıkın ve dengeye odaklanın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Renegade+Row+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Denge+ve+Sırt+için+Renegade+Row"
-                        },
-                        {
-                            name: "Dumbbell Lateral Raise (Omuz Yanlar - Yavaş Tempo)",
-                            setsReps: "2 set x 12-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun, kollar hafif bükülü. Dambılları yanlara, omuz hizasına kadar kaldırın ve 3-4 saniyede kontrollü indirin. Omuzlarınızın yan kısmını hedefleyin, sallanmaktan kaçının.",
-                            videoLink: "https://www.youtube.com/results?search_query=Yavaş+Tempo+Lateral+Raise+Dambıl",
-                            videoLink2: "https://www.youtube.com/results?search_query=Omuz+Yan+Açış+Yavaş+Teknik"
-                        },
-                        {
-                            name: "Dumbbell Hammer Curl (Pazı - Yavaş Tempo)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun, avuç içleri birbirine baksın. Dambılları omuzlarınıza doğru kaldırın ve 3-4 saniyede kontrollü indirin. Pazı ve ön kol kaslarınızı hissedin, dirseklerinizi sabit tutun.",
-                            videoLink: "https://www.youtube.com/results?search_query=Yavaş+Tempo+Hammer+Curl+Dambıl",
-                            videoLink2: "https://www.youtube.com/results?search_query=Pazı+Hammer+Curl+Teknikleri"
-                        },
-                        {
-                            name: "Dumbbell Triceps Extension (Yatarak)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Yere sırtüstü uzanın, her elde bir dambıl tutun. Kollarınızı yukarı uzatın. Dirseklerinizi bükerek dambılları başınızın yanına indirin ve yukarı itin. Dirsekleriniz sabit kalsın, omuzlarınızdan destek almayın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Yatarak+Dambıl+Triceps+Uzatma",
-                            videoLink2: "https://www.youtube.com/results?search_query=Fransız+Press+Dambıl+Nasıl+Yapılır"
-                        },
-                        {
-                            name: "Leg Raises (Karın - Yavaş Tempo)",
-                            setsReps: "2 set x 10-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Sırtüstü yere uzanın, eller kalçanın altında veya yanda. Bacaklarınızı düz veya hafif bükülü şekilde yukarı kaldırın ve 3-4 saniyede yavaşça indirin. Belinizin yerden kalkmamasına dikkat edin, karın kaslarınızı kullanın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Yavaş+Tempo+Bacak+Kaldırma+Karın",
-                            videoLink2: "https://www.youtube.com/results?search_query=Leg+Raise+Yavaş+Teknik"
-                        },
-                    ],
-                    estimatedCaloriesBurned: 400 // Tahmini kalori yakımı ayarlandı
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Kırmızı Et Sote (200g - 1 kase), Bol Sebzeli Sote (250g - 1.5 kase - mantar, biber, soğan, kabak), Tam Buğday Makarna (200g pişmiş - 1.5 su bardağı), Lor Peyniri (150g - 3-4 yemek kaşığı), Zeytinyağı (2 yemek kaşığı)",
-                        calories: "~1400 kcal",
-                        protein: "100g",
-                        carbs: "120g",
-                        fat: "55g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Fırında Köfteli Patates Yemeği (200g köfte, 300g patates), Yoğurt (200g), Yeşil Salata (150g), Tam Buğday Ekmek (1 dilim)",
-                        calories: "~1300 kcal",
-                        protein: "80g",
-                        carbs: "150g",
-                        fat: "40g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Haşlanmış Yumurta (2 adet), Tam Buğday Ekmek (1 dilim), Zeytin (5 adet), Domates, Salatalık, Maydanoz",
-                            calories: "~380 kcal",
-                            protein: "20g", carbs: "35g", fat: "15g"
-                        },
-                        dinner: {
-                            meal: "Kırmızı Mercimek Yemeği (300g - 1.5 kase), Izgara Tavuk (150g - 1 orta parça), Salata (150g - 1 kase)",
-                            calories: "~600 kcal",
-                            protein: "40g", carbs: "70g", fat: "15g"
-                        },
-                        totalCalories: "~980 kcal",
-                        totalProtein: "60g",
-                        totalCarbs: "105g",
-                        totalFat: "30g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Yulaf Lapası (40g yulaf, 150ml süt), Meyve (1 porsiyon), Tarçın",
-                            calories: "~350 kcal",
-                            protein: "10g", carbs: "50g", fat: "10g"
-                        },
-                        dinner: {
-                            meal: "Ton Balıklı Makarna Salatası (150g ton balığı, 100g tam buğday makarna, bol yeşillik), Zeytinyağı (1 yemek kaşığı)",
-                            calories: "~550 kcal",
-                            protein: "35g", carbs: "50g", fat: "20g"
-                        },
-                        totalCalories: "~900 kcal",
-                        totalProtein: "45g",
-                        totalCarbs: "100g",
-                        totalFat: "30g"
-                    }
-                ]
-            },
-            // Gün 11: Perşembe
-            {
-                dayOfWeek: "Perşembe",
-                morningWorkout: {
-                    name: "Aktif Dinlenme",
-                    duration: "60 dk",
-                    instructions: "Tempolu Yürüyüş / Esneme / Yoga (Kaslarınızı rahatlatın, esnekliğinizi artırın.)",
-                    estimatedCaloriesBurned: 200
-                },
-                eveningWorkout: {
-                    name: "Dinlenme",
-                    duration: "Yok",
-                    exercises: [],
-                    estimatedCaloriesBurned: 0
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Sebzeli Tavuklu Çorba (400g - 2 kase), Büyük Yeşil Salata (250g - büyük bir kase), Haşlanmış Yumurta (4 adet), Tam Buğday Galeta (5 adet), Zeytinyağı (2 yemek kaşığı)",
-                        calories: "~1300 kcal",
-                        protein: "90g",
-                        carbs: "140g",
-                        fat: "40g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Izgara Tavuk Salata (200g ızgara tavuk, 300g karışık yeşillik, domates, salatalık, mısır, zeytinyağı 3 yemek kaşığı), Tam Buğray Kraker (6 adet)",
-                        calories: "~1200 kcal",
-                        protein: "80g",
-                        carbs: "100g",
-                        fat: "50g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Yulaf Lapası (50g yulaf - 4 yk, 200ml süt - 1 su bardağı), Kuru Meyve (2-3 adet), Badem (5-6 adet)",
-                            calories: "~400 kcal",
-                            protein: "15g", carbs: "50g", fat: "15g"
-                        },
-                        dinner: {
-                            meal: "Ton Balıklı Salata (1 kutu ton balığı, bol yeşillik, 1 yk zeytinyağı), Tam Buğday Kraker (4 adet)",
-                            calories: "~550 kcal",
-                            protein: "35g", carbs: "40g", fat: "25g"
-                        },
-                        totalCalories: "~950 kcal",
-                        totalProtein: "50g",
-                        totalCarbs: "90g",
-                        totalFat: "40g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Peynirli Omlet (2 yumurta, 30g beyaz peynir), Tam Buğday Ekmek (1 dilim), Domates, Salatalık",
-                            calories: "~380 kcal",
-                            protein: "25g", carbs: "30g", fat: "18g"
-                        },
-                        dinner: {
-                            meal: "Mercimek Çorbası (300g), Izgara Tavuk (100g), Tam Buğday Ekmek (1 dilim)",
-                            calories: "~500 kcal",
-                            protein: "30g", carbs: "60g", fat: "10g"
-                        },
-                        totalCalories: "~880 kcal",
-                        totalProtein: "55g",
-                        totalCarbs: "90g",
-                        totalFat: "28g"
-                    }
-                ]
-            },
-            // Gün 12: Cuma
-            {
-                dayOfWeek: "Cuma",
-                morningWorkout: {
-                    name: "Kardiyo",
-                    duration: "45 dk",
-                    instructions: "Yerinde Koşu / Jumping Jacks / Yüksek Dizler (10 dk ısınma, 30 dk ana, 5 dk soğuma.)",
-                    estimatedCaloriesBurned: 350
-                },
-                eveningWorkout: {
-                    name: "Tüm Vücut Ağırlık (Evde, 5kg Dambıl ile)",
-                    duration: "60 dk", // Süre azaltıldı
-                    exercises: [
-                        {
-                            name: "Dumbbell Goblet Squat (Bacak)",
-                            setsReps: "2 set x 12-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Bir dambılı dikey olarak iki elinizle göğsünüzün önünde tutun. Ayaklar omuz genişliğinde açık. Kalçadan geriye atarak derin bir squat yapın ve yukarı kalkın. Dizleriniz ayak uçlarını geçmesin, sırtınız düz kalsın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Goblet+Squat+Teknikleri",
-                            videoLink2: "https://www.youtube.com/results?search_query=Dambıl+ile+Bacak+Antrenmanı+Evde"
-                        },
-                        {
-                            name: "Dumbbell Floor Press (Göğüs)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Yere sırtüstü uzanın, dizler bükülü, ayaklar yerde. Her elde bir dambıl tutun, dirsekler yere yakın. Dambılları göğsünüzün üzerinden yukarı itin ve kontrollü indirin. Hareketi yavaş ve kontrollü yapın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dumbbell+Floor+Press+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Evde+Dambıl+Göğüs+Antrenmanı"
-                        },
-                        {
-                            name: "Dumbbell Bent-Over Row (İki Kol)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Dizler hafif bükülü, kalçadan öne eğilin, sırt düz. Her elde bir dambıl tutun. Dambılları karın bölgenize doğru çekin ve yavaşça indirin. Kürek kemiklerinizi sıkın, sırtınızı düz tutmaya odaklanın.",
-                            videoLink: "https://www.youtube.com/results?search_query=İki+Kol+Dambıl+Sırt+Çekiş",
-                            videoLink2: "https://www.youtube.com/results?search_query=Sırt+Kası+Dambıl+Egzersizleri"
-                        },
-                        {
-                            name: "Dumbbell Lateral Raise (Omuz Yanlar)",
-                            setsReps: "2 set x 12-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun, kollar hafif bükülü. Dambılları yanlara, omuz hizasına kadar kaldırın ve kontrollü indirin. Omuzlarınızın yan kısmını hedefleyin, sallanmaktan kaçının.",
-                            videoLink: "https://www.youtube.com/results?search_query=Yana+Açış+Dambıl+Omuz+Egzersizi",
-                            videoLink2: "https://www.youtube.com/results?search_query=Dambıl+Lateral+Raise+Teknikleri"
-                        },
-                        {
-                            name: "Dumbbell Bicep Curl (Pazı)",
-                            setsReps: "2 set x 10-12 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Ayakta veya oturarak, her elde bir dambıl tutun. Avuç içleri öne baksın. Dambılları dirseklerinizi bükerek omuzlarınıza doğru kaldırın ve kontrollü indirin. Pazı kaslarınızı sıkın, dirseklerinizi vücudunuza yakın tutun.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dambıl+Pazı+Kıvırma+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Evde+Kol+Kası+Antrenmanı+Dambıl"
-                        },
-                        {
-                            name: "Chair Dips (Arka Kol)",
-                            setsReps: "2 set x Maksimum tekrar (bacaklar bükülü daha kolay)", // Başlangıç seviyesi için kolaylaştırıldı
-                            howTo: "Sırtınız bir sandalyeye dönük, ellerinizi sandalyenin kenarına koyun. Bacaklarınızı uzatın veya bükün. Dirseklerinizi bükerek vücudunuzu aşağı indirin ve yukarı itin. Dirsekleriniz geriye doğru bükülsün.",
-                            videoLink: "https://www.youtube.com/results?search_query=Sandalye+Dips+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Triceps+Dips+Evde"
-                        },
-                        {
-                            name: "Russian Twists (Karın Oblique)",
-                            setsReps: "2 set x 15-20 tekrar (her iki taraf)", // Set/Tekrar azaltıldı
-                            howTo: "Yere oturun, dizler bükülü, ayaklar yerde veya havada. Sırtınızı hafifçe geriye yaslayın. Ellerinizle bir dambıl tutarak gövdenizi sağa ve sola çevirin. Karın kaslarınızı sıkın, belinizi zorlamayın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Russian+Twist+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Yan+Karın+Kası+Russian+Twist"
-                        },
-                    ],
-                    estimatedCaloriesBurned: 400 // Tahmini kalori yakımı ayarlandı
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Izgara Palamut/Uskumru (350g - orta boy bir balık), Mevsim Salata (300g - bol yeşillikli, büyük bir kase), Nohut Salatası (200g - 1.5 kase - domates, salatalık, zeytinyağlı), Zeytinyağı (3 yemek kaşığı)",
-                        calories: "~1400 kcal",
-                        protein: "100g",
-                        carbs: "100g",
-                        fat: "65g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Fırında Sebzeli Tavuk Kanat (300g), Bulgur Pilavı (1.5 su bardağı), Cacık (200g), Yeşil Salata (150g)",
-                        calories: "~1300 kcal",
-                        protein: "90g",
-                        carbs: "130g",
-                        fat: "45g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Haşlanmış Yumurta (2 adet), Tam Buğday Ekmek (1 dilim), Beyaz Peynir (30g), Yeşil Biber",
-                            calories: "~380 kcal",
-                            protein: "20g", carbs: "35g", fat: "15g"
-                        },
-                        dinner: {
-                            meal: "Izgara Balık (Palamut/Uskumru - 200g - 1 orta boy), Mevsim Salata (250g - 2 kase), Zeytinyağı (2 yemek kaşığı)",
-                            calories: "~600 kcal",
-                            protein: "40g", carbs: "30g", fat: "30g"
-                        },
-                        totalCalories: "~980 kcal",
-                        totalProtein: "60g",
-                        totalCarbs: "65g",
-                        totalFat: "45g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Yumurta (1 adet), Tam Buğday Tost (1 dilim ekmek, 30g peynir), Domates, Salatalık",
-                            calories: "~350 kcal",
-                            protein: "18g", carbs: "35g", fat: "15g"
-                        },
-                        dinner: {
-                            meal: "Sebzeli Tavuklu Çorba (300g), Tam Buğday Kraker (4 adet), Yoğurt (150g)",
-                            calories: "~550 kcal",
-                            protein: "30g", carbs: "60g", fat: "15g"
-                        },
-                        totalCalories: "~900 kcal",
-                        totalProtein: "48g",
-                        totalCarbs: "95g",
-                        totalFat: "30g"
-                    }
-                ]
-            },
-            // Gün 13: Cumartesi
-            {
-                dayOfWeek: "Cumartesi",
-                morningWorkout: {
-                    name: "HIIT Kardiyo",
-                    duration: "20 dk", // Süre azaltıldı
-                    instructions: "Burpees / Mountain Climbers / Jumping Lunges (5 dk ısınma, 8-10 döngü 30s egzersiz/30s dinlenme, 5 dk soğuma.)", // Döngü azaltıldı
-                    estimatedCaloriesBurned: 300 // Tahmini kalori yakımı ayarlandı
-                },
-                eveningWorkout: {
-                    name: "Alt Vücut & Karın Ağırlık (Evde, 5kg Dambıl ile)",
-                    duration: "60 dk", // Süre azaltıldı
-                    exercises: [
-                        {
-                            name: "Dumbbell Squat (Bacak)",
-                            setsReps: "2 set x 12-15 tekrar", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun, kollar yanda. Ayaklar omuz genişliğinde açık. Kalçadan geriye atarak çömelin ve yukarı kalkın. Dizleriniz ayak uçlarını geçmesin, sırtınız düz kalsın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Dambıl+Squat+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Evde+Dambıl+Bacak+Egzersizi"
-                        },
-                        {
-                            name: "Dumbbell Walking Lunge (Bacak)",
-                            setsReps: "2 set x 8-10 tekrar (her bacak)", // Set/Tekrar azaltıldı
-                            howTo: "Her elde bir dambıl tutun. İleri doğru adım atarak lunge yapın, ardından diğer bacağınızla devam edin, yürüyerek ilerleyin. Dengenizi koruyun, yavaş ve kontrollü yapın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Yürüyen+Lunge+Dambıl+ile",
-                            videoLink2: "https://www.youtube.com/results?search_query=Dambıl+Yürüyen+Lunge+Teknikleri"
-                        },
-                        {
-                            name: "Single Leg Romanian Deadlift (Arka Bacak/Denge)",
-                            setsReps: "2 set x 8-10 tekrar (her bacak)", // Set/Tekrar azaltıldı
-                            howTo: "Bir dambılı tek elinizle tutun. Dambıl tuttuğunuz tarafın bacağını hafif bükün, diğer bacağınızı geriye doğru uzatırken kalçadan öne eğilin. Sırtınız düz olsun. Arka bacağınızdaki gerilmeyi hissedin, dengeye odaklanın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Tek+Bacak+Romen+Deadlift+Dambıl",
-                            videoLink2: "https://www.youtube.com/results?search_query=Denge+ve+Arka+Bacak+Egzersizi"
-                        },
-                        {
-                            name: "Wall Sit (Bacak İzometrik)",
-                            setsReps: "2 set x 20-30 saniye (veya maksimum tutuş süresi)", // Set/Tekrar azaltıldı
-                            howTo: "Sırtınızı duvara yaslayın, dizler 90 derece bükülü, sanki bir sandalyede oturuyormuş gibi. Bu pozisyonda mümkün olduğunca uzun süre kalın. Bacaklarınızın ön kısmını hissedin.",
-                            videoLink: "https://www.youtube.com/results?search_query=Duvar+Oturuşu+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Wall+Sit+Egzersizi"
-                        },
-                        {
-                            name: "Calf Raises (Baldır)",
-                            setsReps: "2 set x 15-20 tekrar (her bacak)", // Set/Tekrar azaltıldı
-                            howTo: "Ayakta, bir elinizle duvardan destek alın. Parmak ucunuzda yükselin ve baldırınızı sıkın. Yavaşça topuğunuzu indirin. Tek bacakla daha zorlayıcı olacaktır.",
-                            videoLink: "https://www.youtube.com/results?search_query=Baldır+Kaldırma+Egzersizi",
-                            videoLink2: "https://www.youtube.com/results?search_query=Ayakta+Baldır+Kası+Geliştirme"
-                        },
-                        {
-                            name: "Bicycle Crunches (Karın)",
-                            setsReps: "2 set x 15-20 tekrar (her iki taraf)", // Set/Tekrar azaltıldı
-                            howTo: "Sırtüstü yere uzanın, eller başın arkasında. Dizlerinizi bükün. Bir dirseğinizi karşı dizinize değdirirken diğer bacağınızı uzatın. Bisiklet sürer gibi hareket edin. Karın kaslarınızı sıkın, boynunuzu zorlamayın.",
-                            videoLink: "https://www.youtube.com/results?search_query=Bisiklet+Mekik+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Bicycle+Crunch+Teknikleri"
-                        },
-                        {
-                            name: "Side Plank (Karın Oblique)",
-                            setsReps: "2 set x 20-30 saniye (veya maksimum tutuş süresi) (her taraf)", // Set/Tekrar azaltıldı
-                            howTo: "Yan yatın, bir dirseğiniz ve ayaklarınızın yan tarafı üzerinde kendinizi kaldırın. Vücudunuz düz bir çizgi halinde olsun. Yan karın kaslarınızı hissedin.",
-                            videoLink: "https://www.youtube.com/results?search_query=Yan+Plank+Nasıl+Yapılır",
-                            videoLink2: "https://www.youtube.com/results?search_query=Side+Plank+Doğru+Form"
-                        },
-                    ],
-                    estimatedCaloriesBurned: 400 // Tahmini kalori yakımı ayarlandı
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Haşlanmış Tavuk Göğsü (250g - 1 büyük parça), Mercimek Salatası (250g - 1.5 kase - haşlanmış mercimek, maydanoz, domates, zeytinyağlı), Az Yağlı Süzme Peynir (150g - 3-4 yemek kaşığı), Tam Tahıllı Kraker (6 adet), Salata (150g - 1 kase), Zeytinyağı (2 yemek kaşığı)",
-                        calories: "~1500 kcal",
-                        protein: "130g",
-                        carbs: "120g",
-                        fat: "55g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Fırında Somon (200g), Kuşkonmaz (200g), Kinoa Salatası (200g - kinoa, salatalık, domates, maydanoz), Zeytinyağı (2 yemek kaşığı)",
-                        calories: "~1400 kcal",
-                        protein: "100g",
-                        carbs: "100g",
-                        fat: "60g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Yumurta (2 adet), Tam Buğday Ekmek (2 dilim), Zeytin (5 adet), Domates, Salatalık",
-                            calories: "~420 kcal",
-                            protein: "25g", carbs: "40g", fat: "18g"
-                        },
-                        dinner: {
-                            meal: "Izgara Dana Biftek (150g - 1 orta dilim), Buharda Sebze (200g - 1.5 kase), Bulgur Pilavı (1 su bardağı)",
-                            calories: "~600 kcal",
-                            protein: "45g", carbs: "60g", fat: "20g"
-                        },
-                        totalCalories: "~1020 kcal",
-                        totalProtein: "70g",
-                        totalCarbs: "100g",
-                        totalFat: "38g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Yulaf Lapası (40g yulaf, 150ml su/süt), Kuru Üzüm (1 yemek kaşığı), Badem (5 adet)",
-                            calories: "~380 kcal",
-                            protein: "10g", carbs: "55g", fat: "15g"
-                        },
-                        dinner: {
-                            meal: "Kırmızı Mercimek Yemeği (250g), Yoğurt (150g), Tam Buğday Ekmek (1 dilim)",
-                            calories: "~500 kcal",
-                            protein: "25g", carbs: "70g", fat: "10g"
-                        },
-                        totalCalories: "~880 kcal",
-                        totalProtein: "35g",
-                        totalCarbs: "125g",
-                        totalFat: "25g"
-                    }
-                ]
-            },
-            // Gün 14: Pazar
-            {
-                dayOfWeek: "Pazar",
-                morningWorkout: {
-                    name: "Dinlenme",
-                    duration: "Yok",
-                    instructions: "Vücudunuzun tamamen toparlanmasına izin verin.",
-                    estimatedCaloriesBurned: 0
-                },
-                eveningWorkout: {
-                    name: "Dinlenme",
-                    duration: "Yok",
-                    exercises: [],
-                    estimatedCaloriesBurned: 0
-                },
-                omad: [
-                    {
-                        id: "omad-option-1",
-                        name: "Tek Öğün (OMAD)",
-                        type: "OMAD",
-                        meal: "Fasulye Piyazı (300g - 1.5 kase - haşlanmış kuru fasulye, domates, soğan, yumurta, zeytinyağlı), Izgara Dana Antrikot (200g - orta boy bir dilim), Büyük Yeşil Salata (250g - büyük bir kase), Zeytinyağı (2 yemek kaşığı)",
-                        calories: "~1600 kcal",
-                        protein: "110g",
-                        carbs: "150g",
-                        fat: "60g"
-                    },
-                    {
-                        id: "omad-option-2", // Yeni OMAD alternatifi
-                        name: "Tek Öğün (OMAD) Alternatif 2",
-                        type: "OMAD",
-                        meal: "Izgara Tavuk But (250g), Bulgur Pilavı (1.5 su bardağı), Mevsim Salata (250g), Ayran (1 su bardağı)",
-                        calories: "~1400 kcal",
-                        protein: "90g",
-                        carbs: "130g",
-                        fat: "50g"
-                    },
-                    {
-                        id: "multi-meal-option-1",
-                        name: "Kahvaltı Dahil (2 Öğün)",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Peynirli Omlet (2 yumurta, 50g az yağlı peynir), Tam Buğray Ekmek (1 dilim), Domates, Salatalık",
-                            calories: "~400 kcal",
-                            protein: "28g", carbs: "30g", fat: "20g"
-                        },
-                        dinner: {
-                            meal: "Karnıyarık (200g - 1 orta boy patlıcan - az yağlı kıymalı), Yoğurt (150g - 1 kase)",
-                            calories: "~550 kcal",
-                            protein: "30g", carbs: "50g", fat: "25g"
-                        },
-                        totalCalories: "~950 kcal",
-                        totalProtein: "58g",
-                        totalCarbs: "80g",
-                        totalFat: "45g"
-                    },
-                    {
-                        id: "multi-meal-option-2", // Yeni Multi-Meal alternatifi
-                        name: "Kahvaltı Dahil (2 Öğün) Alternatif 2",
-                        type: "Multi-Meal",
-                        breakfast: {
-                            meal: "Haşlanmış Yumurta (2 adet), Tam Buğday Simit (yarım), Zeytin (5 adet), Domates",
-                            calories: "~420 kcal",
-                            protein: "20g", carbs: "50g", fat: "15g"
-                        },
-                        dinner: {
-                            meal: "Kuru Fasulye Yemeği (250g), Bulgur Pilavı (1 su bardağı), Cacık (150g)",
-                            calories: "~580 kcal",
-                            protein: "30g", carbs: "70g", fat: "15g"
-                        },
-                        totalCalories: "~1000 kcal",
-                        totalProtein: "50g",
-                        totalCarbs: "120g",
-                        totalFat: "30g"
-                    }
-                ]
-            },
-        ];
+        const currentDaySpan = document.getElementById('currentDay');
+        const breakfastMenuUl = document.getElementById('breakfastMenu');
+        const dinnerMenuUl = document.getElementById('dinnerMenu');
+        const prevDayBtn = document.getElementById('prevDayBtn');
+        const nextDayBtn = document.getElementById('nextDayBtn');
 
-        // Global State Variables
-        let planData = [];
-        let currentDayIndex = 0;
-        let selectedWeek = 1;
-        let completionStatus = {};
-        let selectedMealAlternativeIndex = 0;
-        let showWorkoutSession = false;
-        let activeWorkoutType = null;
+        /**
+         * Updates the displayed meal plan based on the currentDayIndex.
+         */
+        function updateMealPlanDisplay() {
+            const dayData = mealPlan[currentDayIndex];
+            currentDaySpan.textContent = `Gün ${dayData.day}`;
 
-        let workoutTimerInterval = null;
-        let workoutTimer = 0;
-        let isWorkoutPaused = true;
-        let currentExerciseIndex = 0;
-        const initialExerciseTimerValue = 30; // Default timer for exercises without specific duration
+            // Clear previous lists
+            breakfastMenuUl.innerHTML = '';
+            dinnerMenuUl.innerHTML = '';
 
-        // DOM Elements
-        const dailyPlanContainer = document.getElementById('daily-plan-container');
-        const workoutSessionContainer = document.getElementById('workout-session-container');
-        const prevDayBtn = document.getElementById('prev-day-btn');
-        const nextDayBtn = document.getElementById('next-day-btn');
-        const currentDayInfoSpan = document.getElementById('current-day-info');
-        const weekButtonsContainer = document.getElementById('week-buttons');
-        const dayButtonsContainer = document.getElementById('day-buttons');
-        const overallProgressSummary = document.getElementById('overall-progress-summary');
-
-
-        // Functions to manage state and render UI
-        function generatePlan() {
-            const plan = [];
-            const startDate = new Date('2025-07-07T00:00:00'); // Programın başlangıç tarihi
-
-            for (let i = 0; i < 60; i++) {
-                const currentDate = new Date(startDate);
-                currentDate.setDate(startDate.getDate() + i);
-
-                const dayNumber = i + 1;
-                const routineIndex = Math.floor(i / 7) % 2;
-                const dayInWeekIndex = i % 7;
-
-                let dailyPlan;
-                if (routineIndex === 0) {
-                    dailyPlan = week1Routine[dayInWeekIndex];
+            // Populate breakfast alternatives
+            dayData.breakfast.forEach(item => {
+                const li = document.createElement('li');
+                // Split the item into description and macro info
+                const parts = item.match(/(.*)\s\((P:.*)\)/);
+                if (parts && parts.length === 3) {
+                    const description = parts[1];
+                    const macros = parts[2];
+                    li.innerHTML = `${description} <span class="macro-info">${macros}</span>`;
                 } else {
-                    dailyPlan = week2Routine[dayInWeekIndex];
+                    li.textContent = item;
                 }
+                breakfastMenuUl.appendChild(li);
+            });
 
-                plan.push({
-                    date: currentDate.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' }),
-                    dayOfWeek: dailyPlan.dayOfWeek,
-                    morningWorkout: dailyPlan.morningWorkout,
-                    eveningWorkout: dailyPlan.eveningWorkout,
-                    omad: dailyPlan.omad,
-                    dayNumber: dayNumber,
-                    weekNumber: Math.floor(i / 7) + 1
-                });
-            }
-            return plan;
-        }
-
-        function saveCompletionStatus() {
-            localStorage.setItem('fitnessCompletionStatus', JSON.stringify(completionStatus));
-        }
-
-        function loadCompletionStatus() {
-            const savedCompletion = localStorage.getItem('fitnessCompletionStatus');
-            if (savedCompletion) {
-                completionStatus = JSON.parse(savedCompletion);
-            }
-        }
-
-        function toggleCompletion(dayNum, type) {
-            if (!completionStatus[dayNum]) {
-                completionStatus[dayNum] = {};
-            }
-
-            if (type === 'omadMeal') {
-                const currentDayPlan = planData[currentDayIndex];
-                const currentMealData = currentDayPlan.omad[selectedMealAlternativeIndex];
-                const isCompleted = !(completionStatus[dayNum]?.omadMeal?.completed || false);
-                completionStatus[dayNum].omadMeal = {
-                    completed: isCompleted,
-                    chosenAlternativeIndex: selectedMealAlternativeIndex,
-                    data: isCompleted ? currentMealData : null
-                };
-            } else {
-                completionStatus[dayNum][type] = !(completionStatus[dayNum][type] || false);
-            }
-            saveCompletionStatus();
-            renderDailyPlan(); // Re-render to reflect changes
-            renderOverallProgressSummary(); // Update summary
-        }
-
-        function calculateTotalCompleted() {
-            let completedWorkouts = 0;
-            let completedMeals = 0;
-            let totalNetCalorieDifference = 0;
-            let totalProtein = 0;
-            let totalCarbs = 0;
-            let totalFat = 0;
-
-            planData.forEach(dayPlan => {
-                const dayStatus = completionStatus[dayPlan.dayNumber];
-                if (!dayStatus) return;
-
-                const isMorningWorkoutCompleted = dayStatus.morningWorkout || false;
-                let isEveningWorkoutCompleted = false;
-                if (dayPlan.eveningWorkout.duration === "Yok") {
-                    isEveningWorkoutCompleted = true;
+            // Populate dinner alternatives
+            dayData.dinner.forEach(item => {
+                const li = document.createElement('li');
+                // Split the item into description and macro info
+                const parts = item.match(/(.*)\s\((P:.*)\)/);
+                if (parts && parts.length === 3) {
+                    const description = parts[1];
+                    const macros = parts[2];
+                    li.innerHTML = `${description} <span class="macro-info">${macros}</span>`;
                 } else {
-                    isEveningWorkoutCompleted = dayStatus.eveningWorkout || false;
+                    li.textContent = item;
                 }
-                const isMealPlanCompleted = dayStatus.omadMeal?.completed || false;
-                const chosenMealPlanData = dayStatus.omadMeal?.data;
-
-                if (isMorningWorkoutCompleted && isEveningWorkoutCompleted) {
-                    completedWorkouts++;
-                }
-
-                if (isMealPlanCompleted) {
-                    completedMeals++;
-                }
-
-                if (isMorningWorkoutCompleted && isEveningWorkoutCompleted && isMealPlanCompleted && chosenMealPlanData) {
-                    let consumedCalories = 0;
-                    let consumedProtein = 0;
-                    let consumedCarbs = 0;
-                    let consumedFat = 0;
-
-                    if (chosenMealPlanData.type === "OMAD") {
-                        consumedCalories = parseInt(chosenMealPlanData.calories.replace('~', '').replace(' kcal', '')) || 0;
-                        consumedProtein = parseInt(chosenMealPlanData.protein.replace('g', '')) || 0;
-                        consumedCarbs = parseInt(chosenMealPlanData.carbs.replace('g', '')) || 0;
-                        consumedFat = parseInt(chosenMealPlanData.fat.replace('g', '')) || 0;
-                    } else if (chosenMealPlanData.type === "Multi-Meal") {
-                        consumedCalories = parseInt(chosenMealPlanData.totalCalories.replace('~', '').replace(' kcal', '')) || 0;
-                        consumedProtein = parseInt(chosenMealPlanData.totalProtein.replace('g', '')) || 0;
-                        consumedCarbs = parseInt(chosenMealPlanData.totalCarbs.replace('g', '')) || 0;
-                        consumedFat = parseInt(chosenMealPlanData.totalFat.replace('g', '')) || 0;
-                    }
-
-                    const morningBurn = dayPlan.morningWorkout.estimatedCaloriesBurned || 0;
-                    const eveningBurn = dayPlan.eveningWorkout.estimatedCaloriesBurned || 0;
-                    totalNetCalorieDifference += (consumedCalories - (morningBurn + eveningBurn));
-
-                    totalProtein += consumedProtein;
-                    totalCarbs += consumedCarbs;
-                    totalFat += consumedFat;
-                }
+                dinnerMenuUl.appendChild(li);
             });
 
-            return {
-                workouts: completedWorkouts,
-                meals: completedMeals,
-                netCalorieDifference: totalNetCalorieDifference,
-                totalProtein: totalProtein,
-                totalCarbs: totalCarbs,
-                totalFat: totalFat
-            };
-        }
-
-        function renderOverallProgressSummary() {
-            const totals = calculateTotalCompleted();
-            const netCalorieClass = totals.netCalorieDifference >= 0 ? 'text-green-700' : 'text-red-700';
-
-            overallProgressSummary.innerHTML = `
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">Genel İlerleme Özeti</h3>
-                <div class="flex justify-around text-lg font-semibold mb-4">
-                    <p class="text-green-700">Tamamlanan Antrenmanlar: ${totals.workouts}</p>
-                    <p class="text-green-700">Tamamlanan Öğünler: ${totals.meals}</p>
-                </div>
-                <p class="text-xl font-bold mt-4 ${netCalorieClass}">
-                    Toplam Net Kalori Farkı (Tamamlanan Günler İçin): ${totals.netCalorieDifference} kcal
-                </p>
-                <p class="text-lg font-bold mt-2">
-                    Toplam Tüketilen Makrolar (Tamamlanan Günler İçin):
-                </p>
-                <div class="flex justify-around text-md font-semibold">
-                    <p>Protein: <span class="font-semibold">${totals.totalProtein}g</span></p>
-                    <p>Karbonhidrat: <span class="font-semibold">${totals.totalCarbs}g</span></p>
-                    <p>Yağ: <span class="font-semibold">${totals.totalFat}g</span></p>
-                </div>
-                <p class="text-sm text-gray-500 mt-2">
-                    *Toplam net kalori farkı ve makrolar, sadece sabah antrenmanı, akşam antrenmanı (varsa) ve seçilen yemek planı tamamlanmış günler için hesaplanmıştır.
-                </p>
-            `;
-        }
-
-        function goToPreviousDay() {
-            currentDayIndex = Math.max(0, currentDayIndex - 1);
-            selectedWeek = Math.floor(currentDayIndex / 7) + 1;
-            renderAll();
-        }
-
-        function goToNextDay() {
-            currentDayIndex = Math.min(planData.length - 1, currentDayIndex + 1);
-            selectedWeek = Math.floor(currentDayIndex / 7) + 1;
-            renderAll();
-        }
-
-        function goToSpecificDayInWeek(dayIndexInWeek) {
-            const firstDayOfSelectedWeekIndex = (selectedWeek - 1) * 7;
-            currentDayIndex = firstDayOfSelectedWeekIndex + dayIndexInWeek;
-            renderAll();
-        }
-
-        function renderWeekAndDayButtons() {
-            const totalWeeks = Math.ceil(planData.length / 7);
-            let weeksHtml = '';
-            for (let i = 1; i <= totalWeeks; i++) {
-                weeksHtml += `
-                    <button data-week="${i}" class="px-4 py-2 rounded-lg font-semibold transition duration-300 ease-in-out
-                        ${selectedWeek === i ? 'bg-purple-600 text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}">
-                        Hafta ${i}
-                    </button>
-                `;
-            }
-            weekButtonsContainer.innerHTML = weeksHtml;
-
-            // Attach event listeners for week buttons
-            weekButtonsContainer.querySelectorAll('button').forEach(button => {
-                button.onclick = () => {
-                    selectedWeek = parseInt(button.dataset.week);
-                    const firstDayOfSelectedWeekIndex = (selectedWeek - 1) * 7;
-                    currentDayIndex = firstDayOfSelectedWeekIndex;
-                    renderAll();
-                };
-            });
-
-            const daysInSelectedWeek = planData.filter(day => day.weekNumber === selectedWeek);
-            let daysHtml = '';
-            daysInSelectedWeek.forEach((day, index) => {
-                const dayIsCurrent = currentDayIndex === (selectedWeek - 1) * 7 + index;
-                daysHtml += `
-                    <button data-day-index-in-week="${index}" class="px-4 py-2 rounded-lg font-semibold transition duration-300 ease-in-out
-                        ${dayIsCurrent ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}">
-                        ${day.dayOfWeek.substring(0, 3)}
-                    </button>
-                `;
-            });
-            dayButtonsContainer.innerHTML = daysHtml;
-
-            // Attach event listeners for day buttons
-            dayButtonsContainer.querySelectorAll('button').forEach(button => {
-                button.onclick = () => {
-                    goToSpecificDayInWeek(parseInt(button.dataset.dayIndexInWeek));
-                };
-            });
-
+            // Enable/disable buttons based on current day
             prevDayBtn.disabled = currentDayIndex === 0;
-            nextDayBtn.disabled = currentDayIndex === planData.length - 1;
-            currentDayInfoSpan.textContent = `Gün ${planData[currentDayIndex].dayNumber} / 60`;
-        }
+            nextDayBtn.disabled = currentDayIndex === mealPlan.length - 1;
 
-        function renderDailyPlan() {
-            const currentDayPlan = planData[currentDayIndex];
-            const currentMealPlanOption = currentDayPlan.omad[selectedMealAlternativeIndex];
-
-            // Calculate daily calories and macros
-            let dailyConsumedCalories = 0;
-            let dailyConsumedProtein = 0;
-            let dailyConsumedCarbs = 0;
-            let dailyConsumedFat = 0;
-
-            if (currentMealPlanOption) {
-                if (currentMealPlanOption.type === "OMAD") {
-                    dailyConsumedCalories = parseInt(currentMealPlanOption.calories.replace('~', '').replace(' kcal', '')) || 0;
-                    dailyConsumedProtein = parseInt(currentMealPlanOption.protein.replace('g', '')) || 0;
-                    dailyConsumedCarbs = parseInt(currentMealPlanOption.carbs.replace('g', '')) || 0;
-                    dailyConsumedFat = parseInt(currentMealPlanOption.fat.replace('g', '')) || 0;
-                } else if (currentMealPlanOption.type === "Multi-Meal") {
-                    dailyConsumedCalories = parseInt(currentMealPlanOption.totalCalories.replace('~', '').replace(' kcal', '')) || 0;
-                    dailyConsumedProtein = parseInt(currentMealPlanOption.totalProtein.replace('g', '')) || 0;
-                    dailyConsumedCarbs = parseInt(currentMealPlanOption.totalCarbs.replace('g', '')) || 0;
-                    dailyConsumedFat = parseInt(currentMealPlanOption.totalFat.replace('g', '')) || 0;
-                }
-            }
-
-            const morningBurn = currentDayPlan.morningWorkout.estimatedCaloriesBurned || 0;
-            const eveningBurn = currentDayPlan.eveningWorkout.estimatedCaloriesBurned || 0;
-            const dailyNetCalorieDifference = dailyConsumedCalories - (morningBurn + eveningBurn);
-            const netCalorieClass = dailyNetCalorieDifference >= 0 ? 'text-green-700' : 'text-red-700';
-
-            let eveningWorkoutHtml = '';
-            if (currentDayPlan.eveningWorkout.duration !== "Yok") {
-                let exercisesListHtml = '';
-                currentDayPlan.eveningWorkout.exercises.forEach((exercise, idx) => {
-                    exercisesListHtml += `
-                        <li class="text-gray-700">
-                            ${exercise.videoLink ? `<a href="${exercise.videoLink}" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:underline font-bold mr-2">${exercise.name} (Video 1)</a>` : ''}
-                            ${exercise.videoLink2 ? `<a href="${exercise.videoLink2}" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:underline font-bold">${exercise.name} (Video 2)</a>` : ''}
-                            ${exercise.videoLink || exercise.videoLink2 ? '' : exercise.name} (${exercise.setsReps})
-                            <p class="text-sm text-gray-600 ml-4 italic">Nasıl Yapılır: ${exercise.howTo}</p>
-                        </li>
-                    `;
-                });
-
-                eveningWorkoutHtml = `
-                    <div class="flex items-center mb-2">
-                        <input type="checkbox" id="evening-workout-${currentDayPlan.dayNumber}"
-                            ${completionStatus[currentDayPlan.dayNumber]?.eveningWorkout ? 'checked' : ''}
-                            onchange="toggleCompletion(${currentDayPlan.dayNumber}, 'eveningWorkout')"
-                            class="mr-3 h-6 w-6 text-blue-600 rounded focus:ring-blue-500"
-                        />
-                        <label for="evening-workout-${currentDayPlan.dayNumber}"
-                            class="text-xl font-semibold text-gray-700 ${completionStatus[currentDayPlan.dayNumber]?.eveningWorkout ? 'line-through text-gray-500' : ''}">
-                            Akşam Antrenmanı: ${currentDayPlan.eveningWorkout.name}
-                        </label>
-                        <button onclick="startWorkoutSession('evening')"
-                            class="ml-auto px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition duration-300 ease-in-out text-sm">
-                            Antrenmanı Başlat
-                        </button>
-                    </div>
-                    <p class="text-gray-600 mb-4 ml-9">**Süre:** ${currentDayPlan.eveningWorkout.duration}</p>
-                    <ul class="list-disc list-inside space-y-3 ml-9">
-                        ${exercisesListHtml}
-                    </ul>
-                    <p class="text-gray-600 ml-9 mt-2">**Tahmini Yakılan Kalori:** ${currentDayPlan.eveningWorkout.estimatedCaloriesBurned} kcal</p>
-                `;
+            // Apply disabled styles
+            if (prevDayBtn.disabled) {
+                prevDayBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                prevDayBtn.classList.remove('hover:bg-blue-600', 'hover:scale-105');
             } else {
-                eveningWorkoutHtml = `<p class="text-gray-700 text-xl font-semibold">Bugün akşam antrenmanı yok.</p>`;
+                prevDayBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                prevDayBtn.classList.add('hover:bg-blue-600', 'hover:scale-105');
             }
 
-            let mealPlanOptionsHtml = '';
-            currentDayPlan.omad.forEach((mealOption, index) => {
-                mealPlanOptionsHtml += `
-                    <button data-meal-index="${index}"
-                        class="px-3 py-1 rounded-md text-sm font-medium transition duration-300 ease-in-out
-                        ${selectedMealAlternativeIndex === index ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}">
-                        ${mealOption.name}
-                    </button>
-                `;
-            });
-
-            let mealDetailsHtml = '';
-            if (currentMealPlanOption.type === "OMAD") {
-                mealDetailsHtml = `
-                    <p class="text-gray-700 mb-1 ml-9">**Öğün:** ${currentMealPlanOption.meal}</p>
-                    <p class="text-gray-600 ml-9">**Yaklaşık Kalori:** ${currentMealPlanOption.calories}</p>
-                    <p class="text-gray-600 ml-9">
-                        **Makrolar:** Protein: ${currentMealPlanOption.protein}, Karbonhidrat: ${currentMealPlanOption.carbs}, Yağ: ${currentMealPlanOption.fat}
-                    </p>
-                `;
+            if (nextDayBtn.disabled) {
+                nextDayBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                nextDayBtn.classList.remove('hover:bg-blue-600', 'hover:scale-105');
             } else {
-                mealDetailsHtml = `
-                    <h4 class="text-lg font-semibold text-gray-700 mb-2 ml-9">Kahvaltı:</h4>
-                    <p class="text-gray-700 mb-1 ml-12">${currentMealPlanOption.breakfast.meal}</p>
-                    <p class="text-gray-600 ml-12">Kalori: ${currentMealPlanOption.breakfast.calories}, Protein: ${currentMealPlanOption.breakfast.protein}, Karbonhidrat: ${currentMealPlanOption.breakfast.carbs}, Yağ: ${currentMealPlanOption.breakfast.fat}</p>
-                    <h4 class="text-lg font-semibold text-gray-700 mt-4 mb-2 ml-9">Akşam Yemeği:</h4>
-                    <p class="text-gray-700 mb-1 ml-12">${currentMealPlanOption.dinner.meal}</p>
-                    <p class="text-gray-600 ml-12">Kalori: ${currentMealPlanOption.dinner.calories}, Protein: ${currentMealPlanOption.dinner.protein}, Karbonhidrat: ${currentMealPlanOption.dinner.carbs}, Yağ: ${currentMealPlanOption.dinner.fat}</p>
-                `;
-            }
-
-            dailyPlanContainer.innerHTML = `
-                <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">
-                    ${currentDayPlan.date} - ${currentDayPlan.dayOfWeek}
-                </h2>
-
-                <!-- Sabah Antrenmanı Bölümü -->
-                <div class="mb-6 border-b pb-4">
-                    <div class="flex items-center mb-2">
-                        <input type="checkbox" id="morning-workout-${currentDayPlan.dayNumber}"
-                            ${completionStatus[currentDayPlan.dayNumber]?.morningWorkout ? 'checked' : ''}
-                            onchange="toggleCompletion(${currentDayPlan.dayNumber}, 'morningWorkout')"
-                            class="mr-3 h-6 w-6 text-blue-600 rounded focus:ring-blue-500"
-                        />
-                        <label for="morning-workout-${currentDayPlan.dayNumber}"
-                            class="text-xl font-semibold text-gray-700 ${completionStatus[currentDayPlan.dayNumber]?.morningWorkout ? 'line-through text-gray-500' : ''}">
-                            Sabah Antrenmanı: ${currentDayPlan.morningWorkout.name}
-                        </label>
-                        ${currentDayPlan.morningWorkout.duration !== "Yok" ? `
-                            <button onclick="startWorkoutSession('morning')"
-                                class="ml-auto px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition duration-300 ease-in-out text-sm">
-                                Antrenmanı Başlat
-                            </button>` : ''}
-                    </div>
-                    <p class="text-gray-600 mb-1 ml-9">**Süre:** ${currentDayPlan.morningWorkout.duration}</p>
-                    <p class="text-gray-700 ml-9">${currentDayPlan.morningWorkout.instructions}</p>
-                    <p class="text-gray-600 ml-9 mt-2">**Tahmini Yakılan Kalori:** ${currentDayPlan.morningWorkout.estimatedCaloriesBurned} kcal</p>
-                </div>
-
-                <!-- Akşam Antrenmanı Bölümü -->
-                <div class="mb-6 border-b pb-4">
-                    ${eveningWorkoutHtml}
-                </div>
-
-                <!-- Yemek Planı Bölümü -->
-                <div>
-                    <div class="flex items-center mb-2">
-                        <input type="checkbox" id="omad-meal-${currentDayPlan.dayNumber}"
-                            ${completionStatus[currentDayPlan.dayNumber]?.omadMeal?.completed ? 'checked' : ''}
-                            onchange="toggleCompletion(${currentDayPlan.dayNumber}, 'omadMeal')"
-                            class="mr-3 h-6 w-6 text-blue-600 rounded focus:ring-blue-500"
-                        />
-                        <label for="omad-meal-${currentDayPlan.dayNumber}"
-                            class="text-xl font-semibold text-gray-700 ${completionStatus[currentDayPlan.dayNumber]?.omadMeal?.completed ? 'line-through text-gray-500' : ''}">
-                            Günlük Yemek Planı
-                        </label>
-                    </div>
-
-                    <!-- Öğün Alternatifleri Seçimi -->
-                    <div id="meal-options-container" class="flex flex-wrap gap-2 mb-4 ml-9">
-                        ${mealPlanOptionsHtml}
-                    </div>
-
-                    <!-- Seçili Öğün Planı Detayları -->
-                    ${mealDetailsHtml}
-
-                    <p class="text-sm text-gray-500 mt-4 ml-9">
-                        *Kalori ve makro değerleri tahmini olup, ürün ve porsiyon farklılıklarına göre değişebilir. Tek öğünde tüm besin ihtiyacınızı karşılamak için öğününüzü olabildiğince besin yoğun ve çeşitli tutmaya özen gösterin.*
-                    </p>
-                </div>
-
-                <!-- Günlük Kalori ve Makro Özeti -->
-                <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                    <h3 class="text-xl font-bold text-blue-800 mb-2">Günlük Özet</h3>
-                    <p class="text-gray-700">Tüketilen Kalori (Yemek Planı): <span class="font-semibold">${dailyConsumedCalories} kcal</span></p>
-                    <p class="text-gray-700">Harcanan Kalori (Antrenmanlar): <span class="font-semibold">${morningBurn + eveningBurn} kcal</span></p>
-                    <p class="text-lg font-bold mt-2 ${netCalorieClass}">
-                        Günlük Net Kalori Farkı: ${dailyNetCalorieDifference} kcal
-                    </p>
-                    <p class="text-gray-700 mt-2">
-                        **Tüketilen Makrolar:** Protein: <span class="font-semibold">${dailyConsumedProtein}g</span>, Karbonhidrat: <span class="font-semibold">${dailyConsumedCarbs}g</span>, Yağ: <span class="font-semibold">${dailyConsumedFat}g</span>
-                    </p>
-                </div>
-            `;
-
-            // Attach event listeners for meal options
-            document.getElementById('meal-options-container').querySelectorAll('button').forEach(button => {
-                button.onclick = () => {
-                    selectedMealAlternativeIndex = parseInt(button.dataset.mealIndex);
-                    renderDailyPlan(); // Re-render to show selected meal details
-                };
-            });
-        }
-
-        function startWorkoutSession(type) {
-            showWorkoutSession = true;
-            activeWorkoutType = type;
-            dailyPlanContainer.classList.add('hidden');
-            workoutSessionContainer.classList.remove('hidden');
-            renderWorkoutSession();
-        }
-
-        function endWorkoutSession(type) {
-            showWorkoutSession = false;
-            activeWorkoutType = null;
-            dailyPlanContainer.classList.remove('hidden');
-            workoutSessionContainer.classList.add('hidden');
-            toggleCompletion(planData[currentDayIndex].dayNumber, type === 'morning' ? 'morningWorkout' : 'eveningWorkout');
-            // Reset workout session state
-            clearInterval(workoutTimerInterval);
-            workoutTimer = 0;
-            isWorkoutPaused = true;
-            currentExerciseIndex = 0;
-        }
-
-        function renderWorkoutSession() {
-            const currentDayPlan = planData[currentDayIndex];
-            const exercises = activeWorkoutType === 'morning' ? [] : currentDayPlan.eveningWorkout.exercises;
-
-            if (exercises.length === 0 && activeWorkoutType === 'evening') {
-                workoutSessionContainer.innerHTML = `
-                    <div class="text-center p-8 bg-white rounded-xl shadow-lg">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Bugün bu antrenman tipi için egzersiz yok.</h3>
-                        <button onclick="endWorkoutSession('${activeWorkoutType}')"
-                            class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out">
-                            Geri Dön
-                        </button>
-                    </div>
-                `;
-                return;
-            }
-
-            if (activeWorkoutType === 'morning') {
-                // For morning cardio, just show a completion button
-                workoutSessionContainer.innerHTML = `
-                    <div class="text-center p-8 bg-white rounded-xl shadow-lg">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Sabah Kardiyo Antrenmanı</h3>
-                        <p class="text-lg text-gray-600 mb-6">${currentDayPlan.morningWorkout.instructions}</p>
-                        <p class="text-xl font-bold text-blue-600 mb-8">Süre: ${currentDayPlan.morningWorkout.duration}</p>
-                        <button onclick="endWorkoutSession('morning')"
-                            class="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300 ease-in-out">
-                            Kardiyo Tamamlandı!
-                        </button>
-                        <button onclick="endWorkoutSession('morning')"
-                            class="ml-4 px-6 py-3 bg-gray-400 text-white font-semibold rounded-lg shadow-md hover:bg-gray-500 transition duration-300 ease-in-out">
-                            Geri Dön
-                        </button>
-                    </div>
-                `;
-                return;
-            }
-
-            const currentExercise = exercises[currentExerciseIndex];
-            const progressPercentage = (workoutTimer / (parseInt(currentExercise.setsReps.match(/(\d+)\s*saniye/)?.[1]) || initialExerciseTimerValue)) * 100;
-            const strokeDasharray = 2 * Math.PI * 50;
-            const strokeDashoffset = strokeDasharray * (1 - progressPercentage / 100);
-
-            workoutSessionContainer.innerHTML = `
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">
-                    ${currentDayPlan.eveningWorkout.name}
-                </h2>
-                <div id="workout-content">
-                    <h3 class="text-2xl font-semibold text-gray-700 mb-2">
-                        ${currentExercise.name}
-                    </h3>
-                    <p class="text-lg text-gray-600 mb-4">${currentExercise.setsReps}</p>
-                    <p class="text-md text-gray-700 mb-6">${currentExercise.howTo}</p>
-
-                    <!-- Video Links -->
-                    <div class="flex justify-center gap-4 mb-6">
-                        ${currentExercise.videoLink ? `
-                            <a href="${currentExercise.videoLink}" target="_blank" rel="noopener noreferrer"
-                                class="inline-block px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition duration-300 ease-in-out">
-                                Nasıl Yapılır Videosu 1
-                            </a>` : ''}
-                        ${currentExercise.videoLink2 ? `
-                            <a href="${currentExercise.videoLink2}" target="_blank" rel="noopener noreferrer"
-                                class="inline-block px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition duration-300 ease-in-out">
-                                Nasıl Yapılır Videosu 2
-                            </a>` : ''}
-                    </div>
-
-                    <!-- Timer Display -->
-                    <div class="relative w-32 h-32 mx-auto mb-6">
-                        <div class="absolute inset-0 flex items-center justify-center text-5xl font-bold text-blue-600">
-                            <span id="timer-display">${workoutTimer}s</span>
-                        </div>
-                        <svg class="w-full h-full transform -rotate-90">
-                            <circle
-                                class="text-gray-300"
-                                stroke-width="10"
-                                stroke="currentColor"
-                                fill="transparent"
-                                r="50"
-                                cx="64"
-                                cy="64"
-                            />
-                            <circle
-                                id="timer-progress-circle"
-                                class="text-blue-600"
-                                stroke-width="10"
-                                stroke-dasharray="${strokeDasharray}"
-                                stroke-dashoffset="${strokeDashoffset}"
-                                stroke-linecap="round"
-                                stroke="currentColor"
-                                fill="transparent"
-                                r="50"
-                                cx="64"
-                                cy="64"
-                            />
-                        </svg>
-                    </div>
-
-                    <!-- Timer Controls -->
-                    <div class="flex justify-center gap-4 mb-6">
-                        <button id="timer-start-pause-btn"
-                            class="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300 ease-in-out">
-                            ${isWorkoutPaused ? 'Başlat' : 'Duraklat'}
-                        </button>
-                        <button id="timer-reset-btn"
-                            class="px-6 py-3 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 transition duration-300 ease-in-out">
-                            Sıfırla
-                        </button>
-                    </div>
-
-                    <!-- Navigation Buttons -->
-                    <div class="flex justify-between items-center mt-6">
-                        <button id="prev-exercise-btn"
-                            class="px-6 py-3 bg-gray-400 text-white font-semibold rounded-lg shadow-md hover:bg-gray-500 disabled:opacity-50 disabled:cursor-not-allowed transition duration-300 ease-in-out"
-                            ${currentExerciseIndex === 0 ? 'disabled' : ''}>
-                            &larr; Önceki Egzersiz
-                        </button>
-                        <span class="text-xl font-bold text-gray-800">
-                            ${currentExerciseIndex + 1} / ${exercises.length}
-                        </span>
-                        <button id="next-exercise-btn"
-                            class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out">
-                            Sonraki Egzersiz &rarr;
-                        </button>
-                    </div>
-                </div>
-            `;
-
-            // Attach workout session event listeners
-            document.getElementById('timer-start-pause-btn').onclick = handleStartPauseWorkout;
-            document.getElementById('timer-reset-btn').onclick = handleResetWorkout;
-            document.getElementById('prev-exercise-btn').onclick = handlePreviousExercise;
-            document.getElementById('next-exercise-btn').onclick = handleNextExercise;
-
-            // Initialize timer for the current exercise
-            initializeExerciseTimer();
-        }
-
-        function initializeExerciseTimer() {
-            clearInterval(workoutTimerInterval); // Clear any existing interval
-            const currentDayPlan = planData[currentDayIndex];
-            const exercises = currentDayPlan.eveningWorkout.exercises;
-            const currentExercise = exercises[currentExerciseIndex];
-
-            if (currentExercise.setsReps.includes('saniye')) {
-                const durationMatch = currentExercise.setsReps.match(/(\d+)\s*saniye/);
-                workoutTimer = durationMatch ? parseInt(durationMatch[1]) : initialExerciseTimerValue;
-            } else {
-                workoutTimer = initialExerciseTimerValue;
-            }
-            isWorkoutPaused = true;
-            updateTimerDisplay();
-        }
-
-        function updateTimerDisplay() {
-            document.getElementById('timer-display').textContent = `${workoutTimer}s`;
-            const currentDayPlan = planData[currentDayIndex];
-            const exercises = currentDayPlan.eveningWorkout.exercises;
-            const currentExercise = exercises[currentExerciseIndex];
-            const initialValue = parseInt(currentExercise.setsReps.match(/(\d+)\s*saniye/)?.[1]) || initialExerciseTimerValue;
-            const progressPercentage = (workoutTimer / initialValue) * 100;
-            const circle = document.getElementById('timer-progress-circle');
-            if (circle) {
-                const radius = 50;
-                const circumference = 2 * Math.PI * radius;
-                const offset = circumference * (1 - progressPercentage / 100);
-                circle.style.strokeDashoffset = offset;
+                nextDayBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                nextDayBtn.classList.add('hover:bg-blue-600', 'hover:scale-105');
             }
         }
 
-        function handleStartPauseWorkout() {
-            isWorkoutPaused = !isWorkoutPaused;
-            document.getElementById('timer-start-pause-btn').textContent = isWorkoutPaused ? 'Başlat' : 'Duraklat';
-
-            if (!isWorkoutPaused && workoutTimer > 0) {
-                workoutTimerInterval = setInterval(() => {
-                    workoutTimer--;
-                    updateTimerDisplay();
-                    if (workoutTimer <= 0) {
-                        clearInterval(workoutTimerInterval);
-                        // Optionally auto-advance or show completion
-                    }
-                }, 1000);
-            } else {
-                clearInterval(workoutTimerInterval);
+        /**
+         * Handles the click event for the "Previous Day" button.
+         */
+        prevDayBtn.addEventListener('click', () => {
+            if (currentDayIndex > 0) {
+                currentDayIndex--;
+                updateMealPlanDisplay();
             }
-        }
+        });
 
-        function handleResetWorkout() {
-            initializeExerciseTimer();
-            isWorkoutPaused = true;
-            document.getElementById('timer-start-pause-btn').textContent = 'Başlat';
-        }
-
-        function handleNextExercise() {
-            const currentDayPlan = planData[currentDayIndex];
-            const exercises = currentDayPlan.eveningWorkout.exercises;
-            if (currentExerciseIndex < exercises.length - 1) {
-                currentExerciseIndex++;
-                renderWorkoutSession(); // Re-render with new exercise
-            } else {
-                // Workout finished
-                workoutSessionContainer.innerHTML = `
-                    <div class="text-center">
-                        <h3 class="text-2xl font-bold text-green-600 mb-4">Antrenman Tamamlandı! Harika İş!</h3>
-                        <button onclick="endWorkoutSession('evening')"
-                            class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out">
-                            Geri Dön
-                        </button>
-                    </div>
-                `;
+        /**
+         * Handles the click event for the "Next Day" button.
+         */
+        nextDayBtn.addEventListener('click', () => {
+            if (currentDayIndex < mealPlan.length - 1) {
+                currentDayIndex++;
+                updateMealPlanDisplay();
             }
-        }
+        });
 
-        function handlePreviousExercise() {
-            if (currentExerciseIndex > 0) {
-                currentExerciseIndex--;
-                renderWorkoutSession(); // Re-render with previous exercise
-            }
-        }
-
-        // Main render function
-        function renderAll() {
-            if (showWorkoutSession) {
-                dailyPlanContainer.classList.add('hidden');
-                workoutSessionContainer.classList.remove('hidden');
-                renderWorkoutSession();
-            } else {
-                dailyPlanContainer.classList.remove('hidden');
-                workoutSessionContainer.classList.add('hidden');
-                renderDailyPlan();
-            }
-            renderWeekAndDayButtons();
-            renderOverallProgressSummary();
-
-            // Load saved meal alternative index for the current day
-            const savedAlternativeIndex = completionStatus[planData[currentDayIndex].dayNumber]?.omadMeal?.chosenAlternativeIndex;
-            selectedMealAlternativeIndex = savedAlternativeIndex !== undefined ? savedAlternativeIndex : 0;
-            renderDailyPlan(); // Re-render daily plan with correct meal alternative
-        }
-
-        // Initialize the app
-        window.onload = function() {
-            planData = generatePlan();
-            loadCompletionStatus();
-
-            // Set initial day and week based on current date or default to day 1
-            const today = new Date();
-            const startDate = new Date('2025-07-07T00:00:00');
-            const diffTime = Math.abs(today - startDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-            if (diffDays >= 0 && diffDays < planData.length) {
-                currentDayIndex = diffDays;
-            } else {
-                currentDayIndex = 0; // Default to first day if outside range
-            }
-            selectedWeek = Math.floor(currentDayIndex / 7) + 1;
-
-            renderAll();
-
-            // Attach global navigation button listeners
-            prevDayBtn.onclick = goToPreviousDay;
-            nextDayBtn.onclick = goToNextDay;
-        };
+        // Initialize the display when the page loads
+        document.addEventListener('DOMContentLoaded', updateMealPlanDisplay);
     </script>
 </body>
 </html>
