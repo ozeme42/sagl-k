@@ -102,7 +102,6 @@
         // These global variables are provided by the Canvas environment.
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        // Fix: Changed 'initialAuthToken' to '__initial_auth_token' on the right side of the assignment
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
         // Meal Plan Data with 5 alternatives for each meal and estimated macros, focusing on Turkish cuisine
@@ -111,10 +110,10 @@
             {
                 day: 1,
                 breakfast: [
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 5-6 adet zeytin, 50g beyaz peynir. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g tulum peyniri, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
                     "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Peynir tabağı (50g kaşar peyniri, 30g çeçil peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
                     "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)"
                 ],
                 dinner: [
@@ -128,78 +127,78 @@
             {
                 day: 2,
                 breakfast: [
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)"
+                    "Peynirli omlet (2 yumurta, 50g beyaz peynir), bol maydanoz ve dereotu. (P: 20g, Y: 18g, K: <5g)",
+                    "Zeytin salatası (bol yeşillik, 10-15 adet zeytin, domates, salatalık, zeytinyağı-limon sos), 2 haşlanmış yumurta. (P: 15g, Y: 25g, K: <8g)",
+                    "Ezogelin çorbası (unsuz, bulgursuz), yanında 50g kaşar peyniri. (P: 12g, Y: 10g, K: <15g)",
+                    "Avokado dilimleri (yarım), 2 haşlanmış yumurta, pul biber. (P: 18g, Y: 25g, K: <5g)",
+                    "Hindi fümeli (50g) ve sebzeli (mantar, biber) omlet. (P: 25g, Y: 15g, K: <7g)"
                 ],
                 dinner: [
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)"
+                    "Fırında sebzeli kırmızı et güveç (mantar, soğan, biber), bol yeşil salata. (P: 40g, Y: 25g, K: <10g)",
+                    "Izgara levrek (200g), buharda pişirilmiş brokoli ve havuç. (P: 30g, Y: 15g, K: <8g)",
+                    "Tavuk sote (150g tavuk göğsü, bol sebzeli: kabak, patlıcan, biber), yanında yoğurt. (P: 35g, Y: 12g, K: <10g)",
+                    "Karnabahar pilavı (pirinç yerine rendelenmiş karnabahar), üzerine kıymalı sos. (P: 28g, Y: 20g, K: <15g)",
+                    "Zeytinyağlı enginar (pirinçsiz), bol limonlu. (P: 8g, Y: 15g, K: <15g)"
                 ]
             },
             {
                 day: 3,
                 breakfast: [
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)"
+                    "Çılbır (2 poşe yumurta, sarımsaklı süzme yoğurt), üzerine pul biberli zeytinyağı. (P: 18g, Y: 20g, K: <10g)",
+                    "Hellim peyniri (ızgara, 70g), domates, salatalık, maydanoz. (P: 18g, Y: 15g, K: <5g)",
+                    "Yeşil zeytin (15 adet), siyah zeytin (10 adet), 50g beyaz peynir, roka. (P: 10g, Y: 28g, K: <5g)",
+                    "Dana jambonlu (50g) ve mantarlı omlet (2 yumurta). (P: 25g, Y: 18g, K: <7g)",
+                    "Haşlanmış yumurta salatası (2 yumurta, maydanoz, dereotu, zeytinyağı, limon). (P: 15g, Y: 15g, K: <5g)"
                 ],
                 dinner: [
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)"
+                    "Kuzu şiş (150g kuzu eti, biber, soğan), yanında gavurdağı salatası (nar ekşisiz). (P: 35g, Y: 20g, K: <10g)",
+                    "Fırında sebzeli balık (çipura veya palamut), bol yeşil salata. (P: 30g, Y: 15g, K: <8g)",
+                    "Mercimek çorbası (unsuz, bol sebzeli), yanında limon dilimi. (P: 15g, Y: 8g, K: <15g)",
+                    "Karnabahar graten (kıymalı, beşamel sos yerine yoğurt veya krema bazlı sosla). (P: 28g, Y: 20g, K: <12g)",
+                    "Tavuklu brokoli graten (beşamel sos yerine krema veya yoğurt bazlı sosla). (P: 30g, Y: 22g, K: <12g)"
                 ]
             },
             {
                 day: 4,
                 breakfast: [
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)"
+                    "Peynirli sucuklu yumurta (2 yumurta, 30g sucuk, 30g kaşar peyniri). (P: 28g, Y: 25g, K: <7g)",
+                    "Söğüş tabağı (domates, salatalık, yeşil biber, roka), 2 haşlanmış yumurta, 50g beyaz peynir. (P: 20g, Y: 10g, K: <8g)",
+                    "Otlu omlet (2 yumurta, maydanoz, dereotu, nane), 5-6 adet zeytin. (P: 18g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine 30g çiğ badem, tarçın. (P: 15g, Y: 20g, K: <10g)",
+                    "Köy peyniri (70g), bol yeşillik, domates, salatalık. (P: 15g, Y: 18g, K: <5g)"
                 ],
                 dinner: [
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)"
+                    "Fırında kabak sandal (kıymalı iç harçlı, domates soslu). (P: 25g, Y: 18g, K: <12g)",
+                    "Izgara tavuk kanat (150g), yanında közlenmiş biber ve soğan. (P: 30g, Y: 25g, K: <10g)",
+                    "Zeytinyağlı pırasa (pirinçsiz), bir kase yoğurt. (P: 10g, Y: 15g, K: <15g)",
+                    "Kıymalı kabak yemeği (pirinçsiz), yanında az yağlı yoğurt. (P: 25g, Y: 15g, K: <12g)",
+                    "Fırında sebzeli köfte (kabak, patlıcan, domates), yoğurt. (P: 28g, Y: 18g, K: <10g)"
                 ]
             },
             {
                 day: 5,
                 breakfast: [
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)"
+                    "Pastırmalı yumurta (2 yumurta, 30g az yağlı dana pastırma), domates, salatalık. (P: 25g, Y: 22g, K: <5g)",
+                    "Lor peynirli (70g) ve dereotlu omlet (2 yumurta). (P: 22g, Y: 15g, K: <3g)",
+                    "Peynir ve ceviz tabağı (50g beyaz peynir, 30g ceviz), bol yeşillik. (P: 15g, Y: 25g, K: <5g)",
+                    "Yeşil biberli ve domatesli menemen (soğansız), 5-6 adet zeytin. (P: 18g, Y: 15g, K: <7g)",
+                    "Haşlanmış yumurta, 50g dil peyniri, bol roka. (P: 20g, Y: 12g, K: <3g)"
                 ],
                 dinner: [
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)"
+                    "Izgara dana biftek (180g), yanında sotelenmiş ıspanak. (P: 40g, Y: 25g, K: <8g)",
+                    "Kırmızı mercimek köftesi (bulgursuz, bol yeşillikli), marul yaprakları ile. (P: 20g, Y: 10g, K: <15g)",
+                    "Fırında sebzeli balık (somon veya alabalık), bol yeşil salata. (P: 30g, Y: 15g, K: <8g)",
+                    "Tavuklu mantar sote (150g tavuk, 100g mantar), bol yeşil salata. (P: 30g, Y: 12g, K: <8g)",
+                    "Zeytinyağlı barbunya (pirinçsiz), yanında cacık. (P: 12g, Y: 15g, K: <15g)"
                 ]
             },
             {
                 day: 6,
                 breakfast: [
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Menemen (bol domates, yeşil biber, soğansız), 5-6 adet zeytin, 50g beyaz peynir. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g tulum peyniri, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
                     "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Peynir tabağı (50g kaşar peyniri, 30g çeçil peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
                     "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)"
                 ],
                 dinner: [
@@ -213,29 +212,29 @@
             {
                 day: 7,
                 breakfast: [
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)"
+                    "Peynirli omlet (2 yumurta, 50g beyaz peynir), bol maydanoz ve dereotu. (P: 20g, Y: 18g, K: <5g)",
+                    "Zeytin salatası (bol yeşillik, 10-15 adet zeytin, domates, salatalık, zeytinyağı-limon sos), 2 haşlanmış yumurta. (P: 15g, Y: 25g, K: <8g)",
+                    "Ezogelin çorbası (unsuz, bulgursuz), yanında 50g kaşar peyniri. (P: 12g, Y: 10g, K: <15g)",
+                    "Avokado dilimleri (yarım), 2 haşlanmış yumurta, pul biber. (P: 18g, Y: 25g, K: <5g)",
+                    "Hindi fümeli (50g) ve sebzeli (mantar, biber) omlet. (P: 25g, Y: 15g, K: <7g)"
                 ],
                 dinner: [
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)"
+                    "Fırında sebzeli kırmızı et güveç (mantar, soğan, biber), bol yeşil salata. (P: 40g, Y: 25g, K: <10g)",
+                    "Izgara levrek (200g), buharda pişirilmiş brokoli ve havuç. (P: 30g, Y: 15g, K: <8g)",
+                    "Tavuk sote (150g tavuk göğsü, bol sebzeli: kabak, patlıcan, biber), yanında yoğurt. (P: 35g, Y: 12g, K: <10g)",
+                    "Karnabahar pilavı (pirinç yerine rendelenmiş karnabahar), üzerine kıymalı sos. (P: 28g, Y: 20g, K: <15g)",
+                    "Zeytinyağlı enginar (pirinçsiz), bol limonlu. (P: 8g, Y: 15g, K: <15g)"
                 ]
             },
-            // Hafta 2 (Menüleri tekrarlayarak devam ediyoruz)
+            // Hafta 2
             {
                 day: 8,
                 breakfast: [
                     "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Peynir tabağı (50g kaşar peyniri, 30g çeçil peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
                     "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)"
+                    "Menemen (bol domates, yeşil biber, soğansız), 5-6 adet zeytin, 50g beyaz peynir. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g tulum peyniri, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)"
                 ],
                 dinner: [
                     "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
@@ -248,44 +247,78 @@
             {
                 day: 9,
                 breakfast: [
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)"
+                    "Peynirli omlet (2 yumurta, 50g beyaz peynir), bol maydanoz ve dereotu. (P: 20g, Y: 18g, K: <5g)",
+                    "Zeytin salatası (bol yeşillik, 10-15 adet zeytin, domates, salatalık, zeytinyağı-limon sos), 2 haşlanmış yumurta. (P: 15g, Y: 25g, K: <8g)",
+                    "Ezogelin çorbası (unsuz, bulgursuz), yanında 50g kaşar peyniri. (P: 12g, Y: 10g, K: <15g)",
+                    "Avokado dilimleri (yarım), 2 haşlanmış yumurta, pul biber. (P: 18g, Y: 25g, K: <5g)",
+                    "Hindi fümeli (50g) ve sebzeli (mantar, biber) omlet. (P: 25g, Y: 15g, K: <7g)"
                 ],
                 dinner: [
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)"
+                    "Fırında sebzeli kırmızı et güveç (mantar, soğan, biber), bol yeşil salata. (P: 40g, Y: 25g, K: <10g)",
+                    "Izgara levrek (200g), buharda pişirilmiş brokoli ve havuç. (P: 30g, Y: 15g, K: <8g)",
+                    "Tavuk sote (150g tavuk göğsü, bol sebzeli: kabak, patlıcan, biber), yanında yoğurt. (P: 35g, Y: 12g, K: <10g)",
+                    "Karnabahar pilavı (pirinç yerine rendelenmiş karnabahar), üzerine kıymalı sos. (P: 28g, Y: 20g, K: <15g)",
+                    "Zeytinyağlı enginar (pirinçsiz), bol limonlu. (P: 8g, Y: 15g, K: <15g)"
                 ]
             },
             {
                 day: 10,
                 breakfast: [
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)"
+                    "Çılbır (2 poşe yumurta, sarımsaklı süzme yoğurt), üzerine pul biberli zeytinyağı. (P: 18g, Y: 20g, K: <10g)",
+                    "Hellim peyniri (ızgara, 70g), domates, salatalık, maydanoz. (P: 18g, Y: 15g, K: <5g)",
+                    "Yeşil zeytin (15 adet), siyah zeytin (10 adet), 50g beyaz peynir, roka. (P: 10g, Y: 28g, K: <5g)",
+                    "Dana jambonlu (50g) ve mantarlı omlet (2 yumurta). (P: 25g, Y: 18g, K: <7g)",
+                    "Haşlanmış yumurta salatası (2 yumurta, maydanoz, dereotu, zeytinyağı, limon). (P: 15g, Y: 15g, K: <5g)"
                 ],
                 dinner: [
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)"
+                    "Kuzu şiş (150g kuzu eti, biber, soğan), yanında gavurdağı salatası (nar ekşisiz). (P: 35g, Y: 20g, K: <10g)",
+                    "Fırında sebzeli balık (çipura veya palamut), bol yeşil salata. (P: 30g, Y: 15g, K: <8g)",
+                    "Mercimek çorbası (unsuz, bol sebzeli), yanında limon dilimi. (P: 15g, Y: 8g, K: <15g)",
+                    "Karnabahar graten (kıymalı, beşamel sos yerine yoğurt veya krema bazlı sosla). (P: 28g, Y: 20g, K: <12g)",
+                    "Tavuklu brokoli graten (beşamel sos yerine krema veya yoğurt bazlı sosla). (P: 30g, Y: 22g, K: <12g)"
                 ]
             },
             {
                 day: 11,
                 breakfast: [
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
+                    "Peynirli sucuklu yumurta (2 yumurta, 30g sucuk, 30g kaşar peyniri). (P: 28g, Y: 25g, K: <7g)",
+                    "Söğüş tabağı (domates, salatalık, yeşil biber, roka), 2 haşlanmış yumurta, 50g beyaz peynir. (P: 20g, Y: 10g, K: <8g)",
+                    "Otlu omlet (2 yumurta, maydanoz, dereotu, nane), 5-6 adet zeytin. (P: 18g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine 30g çiğ badem, tarçın. (P: 15g, Y: 20g, K: <10g)",
+                    "Köy peyniri (70g), bol yeşillik, domates, salatalık. (P: 15g, Y: 18g, K: <5g)"
+                ],
+                dinner: [
+                    "Fırında kabak sandal (kıymalı iç harçlı, domates soslu). (P: 25g, Y: 18g, K: <12g)",
+                    "Izgara tavuk kanat (150g), yanında közlenmiş biber ve soğan. (P: 30g, Y: 25g, K: <10g)",
+                    "Zeytinyağlı pırasa (pirinçsiz), bir kase yoğurt. (P: 10g, Y: 15g, K: <15g)",
+                    "Kıymalı kabak yemeği (pirinçsiz), yanında az yağlı yoğurt. (P: 25g, Y: 15g, K: <12g)",
+                    "Fırında sebzeli köfte (kabak, patlıcan, domates), yoğurt. (P: 28g, Y: 18g, K: <10g)"
+                ]
+            },
+            {
+                day: 12,
+                breakfast: [
+                    "Pastırmalı yumurta (2 yumurta, 30g az yağlı dana pastırma), domates, salatalık. (P: 25g, Y: 22g, K: <5g)",
+                    "Lor peynirli (70g) ve dereotlu omlet (2 yumurta). (P: 22g, Y: 15g, K: <3g)",
+                    "Peynir ve ceviz tabağı (50g beyaz peynir, 30g ceviz), bol yeşillik. (P: 15g, Y: 25g, K: <5g)",
+                    "Yeşil biberli ve domatesli menemen (soğansız), 5-6 adet zeytin. (P: 18g, Y: 15g, K: <7g)",
+                    "Haşlanmış yumurta, 50g dil peyniri, bol roka. (P: 20g, Y: 12g, K: <3g)"
+                ],
+                dinner: [
+                    "Izgara dana biftek (180g), yanında sotelenmiş ıspanak. (P: 40g, Y: 25g, K: <8g)",
+                    "Kırmızı mercimek köftesi (bulgursuz, bol yeşillikli), marul yaprakları ile. (P: 20g, Y: 10g, K: <15g)",
+                    "Fırında sebzeli balık (somon veya alabalık), bol yeşil salata. (P: 30g, Y: 15g, K: <8g)",
+                    "Tavuklu mantar sote (150g tavuk, 100g mantar), bol yeşil salata. (P: 30g, Y: 12g, K: <8g)",
+                    "Zeytinyağlı barbunya (pirinçsiz), yanında cacık. (P: 12g, Y: 15g, K: <15g)"
+                ]
+            },
+            {
+                day: 13,
+                breakfast: [
+                    "Menemen (bol domates, yeşil biber, soğansız), 5-6 adet zeytin, 50g beyaz peynir. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g tulum peyniri, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
                     "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Peynir tabağı (50g kaşar peyniri, 30g çeçil peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
                     "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)"
                 ],
                 dinner: [
@@ -297,166 +330,81 @@
                 ]
             },
             {
-                day: 12,
-                breakfast: [
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)"
-                ],
-                dinner: [
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)"
-                ]
-            },
-            {
-                day: 13,
-                breakfast: [
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)"
-                ],
-                dinner: [
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)"
-                ]
-            },
-            {
                 day: 14,
                 breakfast: [
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)"
+                    "Peynirli omlet (2 yumurta, 50g beyaz peynir), bol maydanoz ve dereotu. (P: 20g, Y: 18g, K: <5g)",
+                    "Zeytin salatası (bol yeşillik, 10-15 adet zeytin, domates, salatalık, zeytinyağı-limon sos), 2 haşlanmış yumurta. (P: 15g, Y: 25g, K: <8g)",
+                    "Ezogelin çorbası (unsuz, bulgursuz), yanında 50g kaşar peyniri. (P: 12g, Y: 10g, K: <15g)",
+                    "Avokado dilimleri (yarım), 2 haşlanmış yumurta, pul biber. (P: 18g, Y: 25g, K: <5g)",
+                    "Hindi fümeli (50g) ve sebzeli (mantar, biber) omlet. (P: 25g, Y: 15g, K: <7g)"
                 ],
                 dinner: [
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)"
+                    "Fırında sebzeli kırmızı et güveç (mantar, soğan, biber), bol yeşil salata. (P: 40g, Y: 25g, K: <10g)",
+                    "Izgara levrek (200g), buharda pişirilmiş brokoli ve havuç. (P: 30g, Y: 15g, K: <8g)",
+                    "Tavuk sote (150g tavuk göğsü, bol sebzeli: kabak, patlıcan, biber), yanında yoğurt. (P: 35g, Y: 12g, K: <10g)",
+                    "Karnabahar pilavı (pirinç yerine rendelenmiş karnabahar), üzerine kıymalı sos. (P: 28g, Y: 20g, K: <15g)",
+                    "Zeytinyağlı enginar (pirinçsiz), bol limonlu. (P: 8g, Y: 15g, K: <15g)"
                 ]
             },
             // Hafta 3
             {
                 day: 15,
                 breakfast: [
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)"
+                    "Çılbır (2 poşe yumurta, sarımsaklı süzme yoğurt), üzerine pul biberli zeytinyağı. (P: 18g, Y: 20g, K: <10g)",
+                    "Hellim peyniri (ızgara, 70g), domates, salatalık, maydanoz. (P: 18g, Y: 15g, K: <5g)",
+                    "Yeşil zeytin (15 adet), siyah zeytin (10 adet), 50g beyaz peynir, roka. (P: 10g, Y: 28g, K: <5g)",
+                    "Dana jambonlu (50g) ve mantarlı omlet (2 yumurta). (P: 25g, Y: 18g, K: <7g)",
+                    "Haşlanmış yumurta salatası (2 yumurta, maydanoz, dereotu, zeytinyağı, limon). (P: 15g, Y: 15g, K: <5g)"
                 ],
                 dinner: [
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)"
+                    "Kuzu şiş (150g kuzu eti, biber, soğan), yanında gavurdağı salatası (nar ekşisiz). (P: 35g, Y: 20g, K: <10g)",
+                    "Fırında sebzeli balık (çipura veya palamut), bol yeşil salata. (P: 30g, Y: 15g, K: <8g)",
+                    "Mercimek çorbası (unsuz, bol sebzeli), yanında limon dilimi. (P: 15g, Y: 8g, K: <15g)",
+                    "Karnabahar graten (kıymalı, beşamel sos yerine yoğurt veya krema bazlı sosla). (P: 28g, Y: 20g, K: <12g)",
+                    "Tavuklu brokoli graten (beşamel sos yerine krema veya yoğurt bazlı sosla). (P: 30g, Y: 22g, K: <12g)"
                 ]
             },
             {
                 day: 16,
                 breakfast: [
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)"
+                    "Peynirli sucuklu yumurta (2 yumurta, 30g sucuk, 30g kaşar peyniri). (P: 28g, Y: 25g, K: <7g)",
+                    "Söğüş tabağı (domates, salatalık, yeşil biber, roka), 2 haşlanmış yumurta, 50g beyaz peynir. (P: 20g, Y: 10g, K: <8g)",
+                    "Otlu omlet (2 yumurta, maydanoz, dereotu, nane), 5-6 adet zeytin. (P: 18g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine 30g çiğ badem, tarçın. (P: 15g, Y: 20g, K: <10g)",
+                    "Köy peyniri (70g), bol yeşillik, domates, salatalık. (P: 15g, Y: 18g, K: <5g)"
                 ],
                 dinner: [
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)"
+                    "Fırında kabak sandal (kıymalı iç harçlı, domates soslu). (P: 25g, Y: 18g, K: <12g)",
+                    "Izgara tavuk kanat (150g), yanında közlenmiş biber ve soğan. (P: 30g, Y: 25g, K: <10g)",
+                    "Zeytinyağlı pırasa (pirinçsiz), bir kase yoğurt. (P: 10g, Y: 15g, K: <15g)",
+                    "Kıymalı kabak yemeği (pirinçsiz), yanında az yağlı yoğurt. (P: 25g, Y: 15g, K: <12g)",
+                    "Fırında sebzeli köfte (kabak, patlıcan, domates), yoğurt. (P: 28g, Y: 18g, K: <10g)"
                 ]
             },
             {
                 day: 17,
                 breakfast: [
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)"
+                    "Pastırmalı yumurta (2 yumurta, 30g az yağlı dana pastırma), domates, salatalık. (P: 25g, Y: 22g, K: <5g)",
+                    "Lor peynirli (70g) ve dereotlu omlet (2 yumurta). (P: 22g, Y: 15g, K: <3g)",
+                    "Peynir ve ceviz tabağı (50g beyaz peynir, 30g ceviz), bol yeşillik. (P: 15g, Y: 25g, K: <5g)",
+                    "Yeşil biberli ve domatesli menemen (soğansız), 5-6 adet zeytin. (P: 18g, Y: 15g, K: <7g)",
+                    "Haşlanmış yumurta, 50g dil peyniri, bol roka. (P: 20g, Y: 12g, K: <3g)"
                 ],
                 dinner: [
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)"
+                    "Izgara dana biftek (180g), yanında sotelenmiş ıspanak. (P: 40g, Y: 25g, K: <8g)",
+                    "Kırmızı mercimek köftesi (bulgursuz, bol yeşillikli), marul yaprakları ile. (P: 20g, Y: 10g, K: <15g)",
+                    "Fırında sebzeli balık (somon veya alabalık), bol yeşil salata. (P: 30g, Y: 15g, K: <8g)",
+                    "Tavuklu mantar sote (150g tavuk, 100g mantar), bol yeşil salata. (P: 30g, Y: 12g, K: <8g)",
+                    "Zeytinyağlı barbunya (pirinçsiz), yanında cacık. (P: 12g, Y: 15g, K: <15g)"
                 ]
             },
             {
                 day: 18,
                 breakfast: [
+                    "Menemen (bol domates, yeşil biber, soğansız), 5-6 adet zeytin, 50g beyaz peynir. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g tulum peyniri, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
                     "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)"
-                ],
-                dinner: [
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)"
-                ]
-            },
-            {
-                day: 19,
-                breakfast: [
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)"
-                ],
-                dinner: [
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)"
-                ]
-            },
-            {
-                day: 20,
-                breakfast: [
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)"
-                ],
-                dinner: [
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)"
-                ]
-            },
-            {
-                day: 21,
-                breakfast: [
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Peynir tabağı (50g kaşar peyniri, 30g çeçil peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
                     "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)"
                 ],
                 dinner: [
@@ -465,84 +413,84 @@
                     "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
                     "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
                     "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)"
+                ]
+            },
+            {
+                day: 19,
+                breakfast: [
+                    "Peynirli omlet (2 yumurta, 50g beyaz peynir), bol maydanoz ve dereotu. (P: 20g, Y: 18g, K: <5g)",
+                    "Zeytin salatası (bol yeşillik, 10-15 adet zeytin, domates, salatalık, zeytinyağı-limon sos), 2 haşlanmış yumurta. (P: 15g, Y: 25g, K: <8g)",
+                    "Ezogelin çorbası (unsuz, bulgursuz), yanında 50g kaşar peyniri. (P: 12g, Y: 10g, K: <15g)",
+                    "Avokado dilimleri (yarım), 2 haşlanmış yumurta, pul biber. (P: 18g, Y: 25g, K: <5g)",
+                    "Hindi fümeli (50g) ve sebzeli (mantar, biber) omlet. (P: 25g, Y: 15g, K: <7g)"
+                ],
+                dinner: [
+                    "Fırında sebzeli kırmızı et güveç (mantar, soğan, biber), bol yeşil salata. (P: 40g, Y: 25g, K: <10g)",
+                    "Izgara levrek (200g), buharda pişirilmiş brokoli ve havuç. (P: 30g, Y: 15g, K: <8g)",
+                    "Tavuk sote (150g tavuk göğsü, bol sebzeli: kabak, patlıcan, biber), yanında yoğurt. (P: 35g, Y: 12g, K: <10g)",
+                    "Karnabahar pilavı (pirinç yerine rendelenmiş karnabahar), üzerine kıymalı sos. (P: 28g, Y: 20g, K: <15g)",
+                    "Zeytinyağlı enginar (pirinçsiz), bol limonlu. (P: 8g, Y: 15g, K: <15g)"
+                ]
+            },
+            {
+                day: 20,
+                breakfast: [
+                    "Çılbır (2 poşe yumurta, sarımsaklı süzme yoğurt), üzerine pul biberli zeytinyağı. (P: 18g, Y: 20g, K: <10g)",
+                    "Hellim peyniri (ızgara, 70g), domates, salatalık, maydanoz. (P: 18g, Y: 15g, K: <5g)",
+                    "Yeşil zeytin (15 adet), siyah zeytin (10 adet), 50g beyaz peynir, roka. (P: 10g, Y: 28g, K: <5g)",
+                    "Dana jambonlu (50g) ve mantarlı omlet (2 yumurta). (P: 25g, Y: 18g, K: <7g)",
+                    "Haşlanmış yumurta salatası (2 yumurta, maydanoz, dereotu, zeytinyağı, limon). (P: 15g, Y: 15g, K: <5g)"
+                ],
+                dinner: [
+                    "Kuzu şiş (150g kuzu eti, biber, soğan), yanında gavurdağı salatası (nar ekşisiz). (P: 35g, Y: 20g, K: <10g)",
+                    "Fırında sebzeli balık (çipura veya palamut), bol yeşil salata. (P: 30g, Y: 15g, K: <8g)",
+                    "Mercimek çorbası (unsuz, bol sebzeli), yanında limon dilimi. (P: 15g, Y: 8g, K: <15g)",
+                    "Karnabahar graten (kıymalı, beşamel sos yerine yoğurt veya krema bazlı sosla). (P: 28g, Y: 20g, K: <12g)",
+                    "Tavuklu brokoli graten (beşamel sos yerine krema veya yoğurt bazlı sosla). (P: 30g, Y: 22g, K: <12g)"
+                ]
+            },
+            {
+                day: 21,
+                breakfast: [
+                    "Peynirli sucuklu yumurta (2 yumurta, 30g sucuk, 30g kaşar peyniri). (P: 28g, Y: 25g, K: <7g)",
+                    "Söğüş tabağı (domates, salatalık, yeşil biber, roka), 2 haşlanmış yumurta, 50g beyaz peynir. (P: 20g, Y: 10g, K: <8g)",
+                    "Otlu omlet (2 yumurta, maydanoz, dereotu, nane), 5-6 adet zeytin. (P: 18g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine 30g çiğ badem, tarçın. (P: 15g, Y: 20g, K: <10g)",
+                    "Köy peyniri (70g), bol yeşillik, domates, salatalık. (P: 15g, Y: 18g, K: <5g)"
+                ],
+                dinner: [
+                    "Fırında kabak sandal (kıymalı iç harçlı, domates soslu). (P: 25g, Y: 18g, K: <12g)",
+                    "Izgara tavuk kanat (150g), yanında közlenmiş biber ve soğan. (P: 30g, Y: 25g, K: <10g)",
+                    "Zeytinyağlı pırasa (pirinçsiz), bir kase yoğurt. (P: 10g, Y: 15g, K: <15g)",
+                    "Kıymalı kabak yemeği (pirinçsiz), yanında az yağlı yoğurt. (P: 25g, Y: 15g, K: <12g)",
+                    "Fırında sebzeli köfte (kabak, patlıcan, domates), yoğurt. (P: 28g, Y: 18g, K: <10g)"
                 ]
             },
             // Hafta 4
             {
                 day: 22,
                 breakfast: [
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)"
+                    "Pastırmalı yumurta (2 yumurta, 30g az yağlı dana pastırma), domates, salatalık. (P: 25g, Y: 22g, K: <5g)",
+                    "Lor peynirli (70g) ve dereotlu omlet (2 yumurta). (P: 22g, Y: 15g, K: <3g)",
+                    "Peynir ve ceviz tabağı (50g beyaz peynir, 30g ceviz), bol yeşillik. (P: 15g, Y: 25g, K: <5g)",
+                    "Yeşil biberli ve domatesli menemen (soğansız), 5-6 adet zeytin. (P: 18g, Y: 15g, K: <7g)",
+                    "Haşlanmış yumurta, 50g dil peyniri, bol roka. (P: 20g, Y: 12g, K: <3g)"
                 ],
                 dinner: [
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)"
+                    "Izgara dana biftek (180g), yanında sotelenmiş ıspanak. (P: 40g, Y: 25g, K: <8g)",
+                    "Kırmızı mercimek köftesi (bulgursuz, bol yeşillikli), marul yaprakları ile. (P: 20g, Y: 10g, K: <15g)",
+                    "Fırında sebzeli balık (somon veya alabalık), bol yeşil salata. (P: 30g, Y: 15g, K: <8g)",
+                    "Tavuklu mantar sote (150g tavuk, 100g mantar), bol yeşil salata. (P: 30g, Y: 12g, K: <8g)",
+                    "Zeytinyağlı barbunya (pirinçsiz), yanında cacık. (P: 12g, Y: 15g, K: <15g)"
                 ]
             },
             {
                 day: 23,
                 breakfast: [
+                    "Menemen (bol domates, yeşil biber, soğansız), 5-6 adet zeytin, 50g beyaz peynir. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g tulum peyniri, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
                     "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)"
-                ],
-                dinner: [
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)"
-                ]
-            },
-            {
-                day: 24,
-                breakfast: [
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)"
-                ],
-                dinner: [
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)"
-                ]
-            },
-            {
-                day: 25,
-                breakfast: [
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)"
-                ],
-                dinner: [
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)"
-                ]
-            },
-            {
-                day: 26,
-                breakfast: [
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Peynir tabağı (50g kaşar peyniri, 30g çeçil peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
                     "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)"
                 ],
                 dinner: [
@@ -554,71 +502,122 @@
                 ]
             },
             {
-                day: 27,
+                day: 24,
                 breakfast: [
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)"
+                    "Peynirli omlet (2 yumurta, 50g beyaz peynir), bol maydanoz ve dereotu. (P: 20g, Y: 18g, K: <5g)",
+                    "Zeytin salatası (bol yeşillik, 10-15 adet zeytin, domates, salatalık, zeytinyağı-limon sos), 2 haşlanmış yumurta. (P: 15g, Y: 25g, K: <8g)",
+                    "Ezogelin çorbası (unsuz, bulgursuz), yanında 50g kaşar peyniri. (P: 12g, Y: 10g, K: <15g)",
+                    "Avokado dilimleri (yarım), 2 haşlanmış yumurta, pul biber. (P: 18g, Y: 25g, K: <5g)",
+                    "Hindi fümeli (50g) ve sebzeli (mantar, biber) omlet. (P: 25g, Y: 15g, K: <7g)"
                 ],
                 dinner: [
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)"
+                    "Fırında sebzeli kırmızı et güveç (mantar, soğan, biber), bol yeşil salata. (P: 40g, Y: 25g, K: <10g)",
+                    "Izgara levrek (200g), buharda pişirilmiş brokoli ve havuç. (P: 30g, Y: 15g, K: <8g)",
+                    "Tavuk sote (150g tavuk göğsü, bol sebzeli: kabak, patlıcan, biber), yanında yoğurt. (P: 35g, Y: 12g, K: <10g)",
+                    "Karnabahar pilavı (pirinç yerine rendelenmiş karnabahar), üzerine kıymalı sos. (P: 28g, Y: 20g, K: <15g)",
+                    "Zeytinyağlı enginar (pirinçsiz), bol limonlu. (P: 8g, Y: 15g, K: <15g)"
+                ]
+            },
+            {
+                day: 25,
+                breakfast: [
+                    "Çılbır (2 poşe yumurta, sarımsaklı süzme yoğurt), üzerine pul biberli zeytinyağı. (P: 18g, Y: 20g, K: <10g)",
+                    "Hellim peyniri (ızgara, 70g), domates, salatalık, maydanoz. (P: 18g, Y: 15g, K: <5g)",
+                    "Yeşil zeytin (15 adet), siyah zeytin (10 adet), 50g beyaz peynir, roka. (P: 10g, Y: 28g, K: <5g)",
+                    "Dana jambonlu (50g) ve mantarlı omlet (2 yumurta). (P: 25g, Y: 18g, K: <7g)",
+                    "Haşlanmış yumurta salatası (2 yumurta, maydanoz, dereotu, zeytinyağı, limon). (P: 15g, Y: 15g, K: <5g)"
+                ],
+                dinner: [
+                    "Kuzu şiş (150g kuzu eti, biber, soğan), yanında gavurdağı salatası (nar ekşisiz). (P: 35g, Y: 20g, K: <10g)",
+                    "Fırında sebzeli balık (çipura veya palamut), bol yeşil salata. (P: 30g, Y: 15g, K: <8g)",
+                    "Mercimek çorbası (unsuz, bol sebzeli), yanında limon dilimi. (P: 15g, Y: 8g, K: <15g)",
+                    "Karnabahar graten (kıymalı, beşamel sos yerine yoğurt veya krema bazlı sosla). (P: 28g, Y: 20g, K: <12g)",
+                    "Tavuklu brokoli graten (beşamel sos yerine krema veya yoğurt bazlı sosla). (P: 30g, Y: 22g, K: <12g)"
+                ]
+            },
+            {
+                day: 26,
+                breakfast: [
+                    "Peynirli sucuklu yumurta (2 yumurta, 30g sucuk, 30g kaşar peyniri). (P: 28g, Y: 25g, K: <7g)",
+                    "Söğüş tabağı (domates, salatalık, yeşil biber, roka), 2 haşlanmış yumurta, 50g beyaz peynir. (P: 20g, Y: 10g, K: <8g)",
+                    "Otlu omlet (2 yumurta, maydanoz, dereotu, nane), 5-6 adet zeytin. (P: 18g, Y: 15g, K: <5g)",
+                    "Süzme yoğurt (150g), üzerine 30g çiğ badem, tarçın. (P: 15g, Y: 20g, K: <10g)",
+                    "Köy peyniri (70g), bol yeşillik, domates, salatalık. (P: 15g, Y: 18g, K: <5g)"
+                ],
+                dinner: [
+                    "Fırında kabak sandal (kıymalı iç harçlı, domates soslu). (P: 25g, Y: 18g, K: <12g)",
+                    "Izgara tavuk kanat (150g), yanında közlenmiş biber ve soğan. (P: 30g, Y: 25g, K: <10g)",
+                    "Zeytinyağlı pırasa (pirinçsiz), bir kase yoğurt. (P: 10g, Y: 15g, K: <15g)",
+                    "Kıymalı kabak yemeği (pirinçsiz), yanında az yağlı yoğurt. (P: 25g, Y: 15g, K: <12g)",
+                    "Fırında sebzeli köfte (kabak, patlıcan, domates), yoğurt. (P: 28g, Y: 18g, K: <10g)"
+                ]
+            },
+            {
+                day: 27,
+                breakfast: [
+                    "Pastırmalı yumurta (2 yumurta, 30g az yağlı dana pastırma), domates, salatalık. (P: 25g, Y: 22g, K: <5g)",
+                    "Lor peynirli (70g) ve dereotlu omlet (2 yumurta). (P: 22g, Y: 15g, K: <3g)",
+                    "Peynir ve ceviz tabağı (50g beyaz peynir, 30g ceviz), bol yeşillik. (P: 15g, Y: 25g, K: <5g)",
+                    "Yeşil biberli ve domatesli menemen (soğansız), 5-6 adet zeytin. (P: 18g, Y: 15g, K: <7g)",
+                    "Haşlanmış yumurta, 50g dil peyniri, bol roka. (P: 20g, Y: 12g, K: <3g)"
+                ],
+                dinner: [
+                    "Izgara dana biftek (180g), yanında sotelenmiş ıspanak. (P: 40g, Y: 25g, K: <8g)",
+                    "Kırmızı mercimek köftesi (bulgursuz, bol yeşillikli), marul yaprakları ile. (P: 20g, Y: 10g, K: <15g)",
+                    "Fırında sebzeli balık (somon veya alabalık), bol yeşil salata. (P: 30g, Y: 15g, K: <8g)",
+                    "Tavuklu mantar sote (150g tavuk, 100g mantar), bol yeşil salata. (P: 30g, Y: 12g, K: <8g)",
+                    "Zeytinyağlı barbunya (pirinçsiz), yanında cacık. (P: 12g, Y: 15g, K: <15g)"
                 ]
             },
             {
                 day: 28,
                 breakfast: [
+                    "Menemen (bol domates, yeşil biber, soğansız), 5-6 adet zeytin, 50g beyaz peynir. (P: 20g, Y: 18g, K: <8g)",
+                    "Haşlanmış 2 yumurta, 70g tulum peyniri, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
                     "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)"
+                    "Peynir tabağı (50g kaşar peyniri, 30g çeçil peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
+                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)"
                 ],
                 dinner: [
+                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
+                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
                     "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
                     "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)"
+                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)"
                 ]
             },
             {
                 day: 29,
                 breakfast: [
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)",
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)"
+                    "Peynirli omlet (2 yumurta, 50g beyaz peynir), bol maydanoz ve dereotu. (P: 20g, Y: 18g, K: <5g)",
+                    "Zeytin salatası (bol yeşillik, 10-15 adet zeytin, domates, salatalık, zeytinyağı-limon sos), 2 haşlanmış yumurta. (P: 15g, Y: 25g, K: <8g)",
+                    "Ezogelin çorbası (unsuz, bulgursuz), yanında 50g kaşar peyniri. (P: 12g, Y: 10g, K: <15g)",
+                    "Avokado dilimleri (yarım), 2 haşlanmış yumurta, pul biber. (P: 18g, Y: 25g, K: <5g)",
+                    "Hindi fümeli (50g) ve sebzeli (mantar, biber) omlet. (P: 25g, Y: 15g, K: <7g)"
                 ],
                 dinner: [
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)",
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)"
+                    "Fırında sebzeli kırmızı et güveç (mantar, soğan, biber), bol yeşil salata. (P: 40g, Y: 25g, K: <10g)",
+                    "Izgara levrek (200g), buharda pişirilmiş brokoli ve havuç. (P: 30g, Y: 15g, K: <8g)",
+                    "Tavuk sote (150g tavuk göğsü, bol sebzeli: kabak, patlıcan, biber), yanında yoğurt. (P: 35g, Y: 12g, K: <10g)",
+                    "Karnabahar pilavı (pirinç yerine rendelenmiş karnabahar), üzerine kıymalı sos. (P: 28g, Y: 20g, K: <15g)",
+                    "Zeytinyağlı enginar (pirinçsiz), bol limonlu. (P: 8g, Y: 15g, K: <15g)"
                 ]
             },
             {
                 day: 30,
                 breakfast: [
-                    "Sucuklu yumurta (2 yumurta, 30g az yağlı dana sucuk), bol domates ve yeşil biber. (P: 25g, Y: 20g, K: <7g)",
-                    "Menemen (bol domates, yeşil biber, soğansız), 50g az yağlı lor peyniri, 5-6 adet zeytin. (P: 20g, Y: 18g, K: <8g)",
-                    "Haşlanmış 2 yumurta, 70g beyaz peynir, bol roka ve salatalık dilimleri. (P: 22g, Y: 15g, K: <5g)",
-                    "Süzme yoğurt (150g), üzerine taze nane, dereotu, 30g ceviz içi. (P: 15g, Y: 18g, K: <10g)",
-                    "Peynir tabağı (50g tulum peyniri, 30g kaşar peyniri), 5-6 adet siyah zeytin, domates, salatalık. (P: 18g, Y: 25g, K: <5g)"
+                    "Çılbır (2 poşe yumurta, sarımsaklı süzme yoğurt), üzerine pul biberli zeytinyağı. (P: 18g, Y: 20g, K: <10g)",
+                    "Hellim peyniri (ızgara, 70g), domates, salatalık, maydanoz. (P: 18g, Y: 15g, K: <5g)",
+                    "Yeşil zeytin (15 adet), siyah zeytin (10 adet), 50g beyaz peynir, roka. (P: 10g, Y: 28g, K: <5g)",
+                    "Dana jambonlu (50g) ve mantarlı omlet (2 yumurta). (P: 25g, Y: 18g, K: <7g)",
+                    "Haşlanmış yumurta salatası (2 yumurta, maydanoz, dereotu, zeytinyağı, limon). (P: 15g, Y: 15g, K: <5g)"
                 ],
                 dinner: [
-                    "Ton balıklı büyük salata (marul, domates, salatalık, haşlanmış yumurta, zeytin, zeytinyağı-limon soslu). (P: 25g, Y: 20g, K: <7g)",
-                    "Fırında sebzeli tavuk but (brokoli, karnabahar, havuç), bol yeşil salata. (P: 35g, Y: 20g, K: <10g)",
-                    "Izgara köfte (150g az yağlı kıyma), közlenmiş patlıcan ve biber. (P: 30g, Y: 18g, K: <10g)",
-                    "Zeytinyağlı taze fasulye (patatessiz), bir kase cacık. (P: 10g, Y: 15g, K: <12g)",
-                    "Kıymalı ıspanak yemeği (pirinçsiz), yanında yoğurt. (P: 28g, Y: 15g, K: <8g)"
+                    "Kuzu şiş (150g kuzu eti, biber, soğan), yanında gavurdağı salatası (nar ekşisiz). (P: 35g, Y: 20g, K: <10g)",
+                    "Fırında sebzeli balık (çipura veya palamut), bol yeşil salata. (P: 30g, Y: 15g, K: <8g)",
+                    "Mercimek çorbası (unsuz, bol sebzeli), yanında limon dilimi. (P: 15g, Y: 8g, K: <15g)",
+                    "Karnabahar graten (kıymalı, beşamel sos yerine yoğurt veya krema bazlı sosla). (P: 28g, Y: 20g, K: <12g)",
+                    "Tavuklu brokoli graten (beşamel sos yerine krema veya yoğurt bazlı sosla). (P: 30g, Y: 22g, K: <12g)"
                 ]
             }
         ];
